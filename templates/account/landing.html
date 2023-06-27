@@ -1,0 +1,7 @@
+{% extends "main/header.html" %}
+
+{% block content %}
+  <h2>Welcome to our site!</h2>
+  <p><a href="{% url 'account_signup' %}">Register</a></p>
+  <p><a href="{% url 'account_login' %}">Log in</a></p>
+{% endblock %}
