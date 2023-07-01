@@ -21,6 +21,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),  # Django allauth urls
     path('', include('registration.urls')),  # Include your registration app urls here
+    path('core/', include('core.urls')),  # Include your core app urls here
+    path('ctm_tracking/', include('ctm_tracking.urls')),  # Include your ctm_tracking app urls here
 ]
+
 
 

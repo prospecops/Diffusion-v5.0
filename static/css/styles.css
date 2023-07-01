@@ -1,0 +1,36 @@
+.main-navigation,
+.sub-navigation {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+}
+
+.main-navigation {
+    background-color: #333;
+}
+
+.sub-navigation {
+    background-color: #555;
+}
+
+.main-navigation li,
+.sub-navigation li {
+    float: left;
+}
+
+.main-navigation li a,
+.sub-navigation li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.main-navigation li a:hover,
+.sub-navigation li a:hover {
+    background-color: #111;
+}

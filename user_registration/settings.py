@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'django-insecure-yl$g!r59pvv!@ca7sskca#!b62gytuh77j6g)dvtp^5d11gzrr
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -41,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'registration',
+    'core',
+    'ctm_tracking',
 ]
 
 MIDDLEWARE = [
@@ -73,7 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'user_registration.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -83,7 +82,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -103,7 +101,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -115,11 +112,13 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -137,7 +136,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # replace with your actual smtp server
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-#TODO: change to env variables
+# TODO: change to env variables
 EMAIL_HOST_USER = 'diffusion.helpdesk@gmail.com'
 EMAIL_HOST_PASSWORD = 'fjxyhsqklvlughzd'
 
@@ -148,7 +147,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400  # one day in seconds
 SITE_ID = 1
-LOGIN_REDIRECT_URL = '/home/'
+LOGIN_REDIRECT_URL = '/core/'
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_FORMS = {'signup': 'registration.forms.CustomSignupForm'}
 
@@ -170,7 +169,3 @@ ACCOUNT_FORMS = {'signup': 'registration.forms.CustomSignupForm'}
 # ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 # ACCOUNT_PASSWORD_RESET_TIMEOUT_DAYS = 1
 # ACCOUNT_PASSWORD_RESET_CONFIRM = True
-
-
-
-
