@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'registration',
     'core',
     'ctm_tracking',
+    'supplier',
 ]
 
 MIDDLEWARE = [

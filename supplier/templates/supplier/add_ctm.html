@@ -1,0 +1,43 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <select id="ctmType" name="ctm_type">
+        <option value="Bulk">Bulk</option>
+        <option value="Individual">Individual</option>
+    </select>
+
+    <div id="bulkCtmForm">
+        {{ bulk_form.as_p }}
+    </div>
+
+    <div id="individualCtmForm" style="display:none;">
+        {{ individual_form.as_p }}
+    </div>
+
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
+
+{% block extra_script %}
+<script>
+    document.getElementById("ctmType").addEventListener("change", function() {
+        var type = this.value;
+        if (type == 'Bulk') {
+            document.getElementById("bulkCtmForm").style.display = "block";
+            document.getElementById("individualCtmForm").style.display = "none";
+        } else {
+            document.getElementById("bulkCtmForm").style.display = "none";
+            document.getElementById("individualCtmForm").style.display = "block";
+        }
+    });
+
+    // Datepicker initialization
+    $(document).ready(function(){
+        $(".datepicker").datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    });
+</script>
+{% endblock %}

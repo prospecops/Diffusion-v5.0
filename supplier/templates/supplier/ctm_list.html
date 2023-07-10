@@ -1,0 +1,12 @@
+{% for ctm in ctm_list %}
+    <div>
+        <h2>{{ ctm.device }}</h2>
+        <p>Type: {{ ctm.ctm_type }}</p>
+        <p>Lot Number: {{ ctm.lot_number }}</p>
+        <p>Quantity: {{ ctm.quantity }}</p>
+        <p>Expiration Date: {{ ctm.expiration_date }}</p>
+        {% if ctm.ctm_type == "Individual" %}
+            <p>Kit / Serial Number: {{ ctm.kit_serial_number }}</p>
+        {% endif %}
+    </div>
+{% endfor %}

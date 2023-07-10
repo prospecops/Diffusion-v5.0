@@ -1,0 +1,38 @@
+{% extends 'core/base_generic.html' %}
+
+{% block content %}
+    <h1>CTM Supplier Portal</h1>
+
+    <h2>Add CTM</h2>
+    <select id="ctm_type" onchange="toggleCTMType()">
+        <option value="bulk">Bulk</option>
+        <option value="individual">Individual</option>
+    </select>
+
+    <div id="bulk_form" style="display: block;">
+        <form method="post" action="{% url 'supplier:add_ctm' %}">
+            {% csrf_token %}
+            {{ bulk_form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div id="individual_form" style="display: none;">
+        <form method="post" action="{% url 'supplier:add_ctm' %}">
+            {% csrf_token %}
+            {{ individual_form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block extra_style %}
+<script>
+    function toggleCTMType() {
+        var ctmType = document.getElementById('ctm_type').value;
+        document.getElementById('bulk_form').style.display = (ctmType == 'bulk') ? 'block' : 'none';
+        document.getElementById('individual_form').style.display = (ctmType == 'individual') ? 'block' : 'none';
+    }
+</script>
+{% endblock %}
+

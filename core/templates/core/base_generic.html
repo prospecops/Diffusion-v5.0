@@ -5,6 +5,12 @@
     <title>Diffusion</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <!-- Added jQuery and jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+
     {% block extra_style %}{% endblock %}
 </head>
 <body>
@@ -12,6 +18,9 @@
     <ul class="main-navigation">
         <li><a href="{% url 'core:home' %}">Home</a></li>
         <li><a href="{% url 'ctm_tracking:ctm_tracking_home' %}">CTM Tracking</a></li>
+        {% if perms.supplier.view_supplier_portal %}
+            <li><a href="{% url 'supplier:supplier_portal' %}">CTM Supplier Portal</a></li>
+        {% endif %}
     </ul>
 </header>
 
@@ -21,5 +30,8 @@
 <footer>
     <!-- Your footer here -->
 </footer>
+
+{% block extra_script %}{% endblock %} <!-- Added this line -->
 </body>
 </html>
+
