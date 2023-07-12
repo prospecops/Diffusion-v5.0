@@ -4,15 +4,16 @@
 <form method="post">
     {% csrf_token %}
     <select id="ctmType" name="ctm_type">
+        <option value="">--Select a Type--</option> <!-- Add this line -->
         <option value="Bulk">Bulk</option>
         <option value="Individual">Individual</option>
     </select>
 
-    <div id="bulkCtmForm">
+    <div id="bulkCtmForm" style="display:none;"> <!-- Change display to none -->
         {{ bulk_form.as_p }}
     </div>
 
-    <div id="individualCtmForm" style="display:none;">
+    <div id="individualCtmForm" style="display:none;"> <!-- Keep display as none -->
         {{ individual_form.as_p }}
     </div>
 
@@ -24,20 +25,25 @@
 <script>
     document.getElementById("ctmType").addEventListener("change", function() {
         var type = this.value;
+
+        // Hide both forms initially
+        document.getElementById("bulkCtmForm").style.display = "none";
+        document.getElementById("individualCtmForm").style.display = "none";
+
+        // Only display the selected form
         if (type == 'Bulk') {
             document.getElementById("bulkCtmForm").style.display = "block";
-            document.getElementById("individualCtmForm").style.display = "none";
-        } else {
-            document.getElementById("bulkCtmForm").style.display = "none";
+        } else if (type == 'Individual') {
             document.getElementById("individualCtmForm").style.display = "block";
         }
-    });
 
-    // Datepicker initialization
-    $(document).ready(function(){
+        // Initialize datepicker for the selected form
         $(".datepicker").datepicker({
             dateFormat: 'yy-mm-dd'
         });
     });
 </script>
 {% endblock %}
+
+
+

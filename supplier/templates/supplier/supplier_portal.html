@@ -5,11 +5,12 @@
 
     <h2>Add CTM</h2>
     <select id="ctm_type" onchange="toggleCTMType()">
+        <option value="">--Select a Type--</option> <!-- Add this line -->
         <option value="bulk">Bulk</option>
         <option value="individual">Individual</option>
     </select>
 
-    <div id="bulk_form" style="display: block;">
+    <div id="bulk_form" style="display: none;"> <!-- Change display to none -->
         <form method="post" action="{% url 'supplier:add_ctm' %}">
             {% csrf_token %}
             {{ bulk_form.as_p }}
@@ -17,7 +18,7 @@
         </form>
     </div>
 
-    <div id="individual_form" style="display: none;">
+    <div id="individual_form" style="display: none;"> <!-- Keep display as none -->
         <form method="post" action="{% url 'supplier:add_ctm' %}">
             {% csrf_token %}
             {{ individual_form.as_p }}
@@ -30,8 +31,22 @@
 <script>
     function toggleCTMType() {
         var ctmType = document.getElementById('ctm_type').value;
-        document.getElementById('bulk_form').style.display = (ctmType == 'bulk') ? 'block' : 'none';
-        document.getElementById('individual_form').style.display = (ctmType == 'individual') ? 'block' : 'none';
+
+        // Hide both forms initially
+        document.getElementById('bulk_form').style.display = 'none';
+        document.getElementById('individual_form').style.display = 'none';
+
+        // Only display the selected form
+        if (ctmType == 'bulk') {
+            document.getElementById('bulk_form').style.display = 'block';
+        } else if (ctmType == 'individual') {
+            document.getElementById('individual_form').style.display = 'block';
+        }
+
+        // Initialize datepicker for the selected form
+        $(".datepicker").datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
     }
 </script>
 {% endblock %}
