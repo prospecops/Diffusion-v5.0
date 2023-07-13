@@ -5,7 +5,7 @@
 
     <h2>Add CTM</h2>
     <select id="ctm_type" onchange="toggleCTMType()">
-        <option value="">--Select a Type--</option> <!-- Add this line -->
+        <option value="">--Select a Type--</option>
         <option value="bulk">Bulk</option>
         <option value="individual">Individual</option>
     </select>
@@ -13,6 +13,7 @@
     <div id="bulk_form" style="display: none;"> <!-- Change display to none -->
         <form method="post" action="{% url 'supplier:add_ctm' %}">
             {% csrf_token %}
+            <input type="hidden" name="ctm_type" value="bulk">  <!-- This line is added -->
             {{ bulk_form.as_p }}
             <button type="submit">Submit</button>
         </form>
@@ -21,6 +22,7 @@
     <div id="individual_form" style="display: none;"> <!-- Keep display as none -->
         <form method="post" action="{% url 'supplier:add_ctm' %}">
             {% csrf_token %}
+            <input type="hidden" name="ctm_type" value="individual">  <!-- This line is added -->
             {{ individual_form.as_p }}
             <button type="submit">Submit</button>
         </form>
@@ -50,4 +52,6 @@
     }
 </script>
 {% endblock %}
+
+
 

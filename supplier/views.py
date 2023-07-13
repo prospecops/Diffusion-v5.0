@@ -17,21 +17,29 @@ def supplier_portal(request):
     return render(request, 'supplier/supplier_portal.html', context)
 
 
-
 def add_ctm(request):
     if request.method == "POST":
         ctm_type = request.POST.get('ctm_type')
-        if ctm_type == 'Bulk':
+        if ctm_type == 'bulk':
             form = BulkCTMForm(request.POST, prefix='bulk')
-        else:
+        elif ctm_type == 'individual':
             form = IndividualCTMForm(request.POST, prefix='individual')
+        else:
+            form = None
 
-        if form.is_valid():
-            form.save()
-            return redirect('supplier:supplier_portal')
-    else:
-        return redirect('supplier:supplier_portal')
-
+        if form is not None:
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.ctm_type = ctm_type
+                instance.save()
+                print("Form data saved successfully.")
+                return redirect('supplier:supplier_portal')
+            else:
+                print("Form is not valid.")
+                print(form.errors)
+        else:
+            print("Invalid CTM type.")
+    return redirect('supplier:supplier_portal')
 
 
 class CTMListView(ListView):
