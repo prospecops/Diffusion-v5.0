@@ -1,11 +1,13 @@
 from django.urls import path
 
 from . import views
-from .views import add_ctm, CTMListView
+from .views import CTMListView, create_inventory, supplier_inventory, depot_inventory_shipments
 
 app_name = "supplier"
 urlpatterns = [
-    path('portal/', views.supplier_portal, name='supplier_portal'),
-    path('add_ctm/', add_ctm, name='add_ctm'),
-    path('ctm_list/', CTMListView.as_view(), name='ctm_list'),  # Add this line
+    path('create_inventory/', create_inventory, name='create_inventory'),
+    path('supplier_inventory/', supplier_inventory, name='supplier_inventory'),
+    path('depot_inventory_shipments/', depot_inventory_shipments, name='depot_inventory_shipments'),
+    path('ctm_list/', CTMListView.as_view(), name='ctm_list'),
 ]
+

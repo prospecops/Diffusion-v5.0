@@ -1,7 +1,7 @@
-{% extends 'core/base_generic.html' %}
+{% extends 'supplier/supplier_base_generic.html' %}
 
-{% block content %}
-    <h1>CTM Supplier Portal</h1>
+{% block supplier_content %}
+    <h1>Create Inventory</h1>
 
     <h2>Add CTM</h2>
     <select id="ctm_type" onchange="toggleCTMType()">
@@ -11,7 +11,7 @@
     </select>
 
     <div id="bulk_form" style="display: none;"> <!-- Change display to none -->
-        <form method="post" action="{% url 'supplier:add_ctm' %}">
+        <form method="post" action="{% url 'supplier:create_inventory' %}">
             {% csrf_token %}
             <input type="hidden" name="ctm_type" value="bulk">  <!-- This line is added -->
             {{ bulk_form.as_p }}
@@ -20,7 +20,7 @@
     </div>
 
     <div id="individual_form" style="display: none;"> <!-- Keep display as none -->
-        <form method="post" action="{% url 'supplier:add_ctm' %}">
+        <form method="post" action="{% url 'supplier:create_inventory' %}">
             {% csrf_token %}
             <input type="hidden" name="ctm_type" value="individual">  <!-- This line is added -->
             {{ individual_form.as_p }}
