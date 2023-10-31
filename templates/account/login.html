@@ -1,18 +1,13 @@
 {% extends "account/base.html" %}
 
 {% load i18n %}
-{% load account %} <!-- Notice we're not loading socialaccount -->
+{% load account %}
 
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
-
-{% block content %}
+{% block body %}
 
 <h1>{% trans "Sign In" %}</h1>
 
-<!-- The social providers section is removed here -->
-
-<p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+<p>If you have not created an account yet, then please <a href="{% url 'account_signup' %}">{% trans "sign up" %}</a> first.</p>
 
 <form class="login" method="POST" action="{% url 'account_login' %}">
 {% csrf_token %}
@@ -26,3 +21,4 @@
 <p><a class="forgot-password" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a></p>
 
 {% endblock %}
+

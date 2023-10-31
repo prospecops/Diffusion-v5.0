@@ -20,6 +20,7 @@
         <li><a href="{% url 'ctm_tracking:ctm_tracking_home' %}">CTM Tracking</a></li>
         {% if perms.supplier.view_supplier_portal %}
             <li><a href="{% url 'supplier:create_inventory' %}">CTM Supplier Portal</a></li>
+            <li><a href="{% url 'depots:depot_inventory' %}">Depot Portal</a></li> <!-- New line for Depot Portal -->
         {% endif %}
     </ul>
 </header>
@@ -34,4 +35,6 @@
 {% block extra_script %}{% endblock %} <!-- Added this line -->
 </body>
 </html>
+
+
 

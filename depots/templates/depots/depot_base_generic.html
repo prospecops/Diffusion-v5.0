@@ -1,0 +1,18 @@
+{% extends "core/base_generic.html" %}
+
+{% load static %}
+
+{% block extra_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+    <header>
+        <ul class="sub-navigation">
+            <li><a href="{% url 'depots:depot_inventory' %}">Depot Inventory</a></li>
+            <li><a href="{% url 'depots:depot_shipments' %}">Depot Shipments</a></li>
+            <li><a href="{% url 'depots:returned_inventory' %}">Returned Inventory</a></li>
+        </ul>
+    </header>
+    {% block depot_content %}{% endblock %}
+{% endblock %}

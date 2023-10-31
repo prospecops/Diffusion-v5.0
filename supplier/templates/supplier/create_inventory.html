@@ -3,6 +3,16 @@
 {% block supplier_content %}
     <h1>Create Inventory</h1>
 
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <h2>Add CTM</h2>
     <select id="ctm_type" onchange="toggleCTMType()">
         <option value="">--Select a Type--</option>
@@ -19,11 +29,12 @@
         </form>
     </div>
 
-    <div id="individual_form" style="display: none;"> <!-- Keep display as none -->
-        <form method="post" action="{% url 'supplier:create_inventory' %}">
+    <div id="individual_form" style="display: none;">
+        <form method="post" action="{% url 'supplier:create_inventory' %}" onsubmit="return validateForm();">
             {% csrf_token %}
-            <input type="hidden" name="ctm_type" value="individual">  <!-- This line is added -->
+            <input type="hidden" name="ctm_type" value="individual">
             {{ individual_form.as_p }}
+            <div class="error-message" id="kitNumberError" style="color: red;"></div>
             <button type="submit">Submit</button>
         </form>
     </div>
@@ -50,8 +61,30 @@
             dateFormat: 'yy-mm-dd'
         });
     }
+
+    function validateForm() {
+    const kitNumberInput = document.querySelector("[name='individual-kit_serial_number']");
+    const kitNumberErrorDiv = document.getElementById("kitNumberError");
+    if (kitNumberInput.value === "") {
+        kitNumberErrorDiv.textContent = "Please fill out this field.";
+        return false;
+    }
+
+    {% for message in messages %}
+        if ("{{ message }}" === "Form is not valid.") {
+            kitNumberErrorDiv.textContent = "Kit number already exists.";
+            return false;
+        }
+    {% endfor %}
+
+    return true;
+}
+
 </script>
+
+
 {% endblock %}
+
 
 
 

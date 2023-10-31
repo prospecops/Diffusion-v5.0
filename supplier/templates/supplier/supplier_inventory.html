@@ -1,6 +1,57 @@
 {% extends 'supplier/supplier_base_generic.html' %}
 
 {% block supplier_content %}
-    <h1>Supplier Inventory</h1>
-    <!-- rest of your template here -->
+<h2>Supplier Inventory</h2>
+
+<h3>Individual Inventory</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Kit Serial Number</th>
+            <th>Device</th>
+            <th>Quantity</th>
+            <th>Expiration Date</th>
+            <th>Lot Number</th>
+            <!-- Add other columns as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in individual_ctms %}
+        <tr>
+            <td>{{ item.kit_serial_number }}</td>
+            <td>{{ item.device }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.expiration_date }}</td>
+            <td>{{ item.lot_number }}</td>
+            <!-- Add other data as needed -->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Bulk Inventory</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Kit Serial Number</th>
+            <th>Device</th>
+            <th>Quantity</th>
+            <th>Expiration Date</th>
+            <th>Lot Number</th>
+            <!-- Add other columns as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in bulk_ctms %}
+        <tr>
+            <td>{{ item.kit_serial_number }}</td>
+            <td>{{ item.device }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.expiration_date }}</td>
+            <td>{{ item.lot_number }}</td>
+            <!-- Add other data as needed -->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

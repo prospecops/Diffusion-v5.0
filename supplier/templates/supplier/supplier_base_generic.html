@@ -12,7 +12,9 @@
             <li><a href="{% url 'supplier:create_inventory' %}">Create Inventory</a></li>
             <li><a href="{% url 'supplier:supplier_inventory' %}">Supplier Inventory</a></li>
             <li><a href="{% url 'supplier:depot_inventory_shipments' %}">Depot Inventory Shipments</a></li>
-        </ul>
+            <li><a href="{% url 'supplier:returned_inventory' %}">Returned Inventory</a></li>
+        </ul>›
     </header>
     {% block supplier_content %}{% endblock %}
 {% endblock %}
+›

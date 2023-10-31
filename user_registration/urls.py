@@ -24,7 +24,10 @@ urlpatterns = [
     path('core/', include('core.urls')),  # Include your core app urls here
     path('ctm_tracking/', include('ctm_tracking.urls')),  # Include your ctm_tracking app urls here
     path('supplier/', include('supplier.urls')),  # Include your supplier app urls here
+    path('depots/', include('depots.urls')),  # Include your depot app urls here
 ]
+
+
 
 
 
