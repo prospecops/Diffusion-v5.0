@@ -8,6 +8,11 @@ class CustomSignupForm(SignupForm):
 
     def save(self, request):
         user = super(CustomSignupForm, self).save(request)
-        user.groups.add(self.cleaned_data['role'])  # add the user to the selected group
+        # your custom logic here
         user.save()
+
+        if self.cleaned_data['role']:
+            user.groups.add(self.cleaned_data['role'])  # add the user to the selected group
+
         return user
+

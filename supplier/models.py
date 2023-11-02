@@ -26,7 +26,6 @@ class CTM(models.Model):
 
 
 class BulkCTM(CTM):
-    # remove ctm_type field
     device = models.CharField(max_length=100)
     lot_number = models.CharField(max_length=100)
     quantity = models.IntegerField()
@@ -34,10 +33,8 @@ class BulkCTM(CTM):
 
 
 class IndividualCTM(CTM):
-    # remove ctm_type field
     device = models.CharField(max_length=100)
-    kit_serial_number = models.CharField(max_length=100, unique=True) # combined field
+    kit_serial_number = models.CharField(max_length=100, unique=True)  # combined field
     quantity = models.IntegerField(default=1)
     expiration_date = models.DateField()
     lot_number = models.CharField(max_length=100)
-
