@@ -1,6 +1,45 @@
 {% extends "depots/depot_base_generic.html" %}
 
 {% block depot_content %}
-    <h2>Depot Inventory</h2>
-    <!-- Your Depot Inventory content goes here. -->
+<h2>Depot Inventory</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Device</th>
+            <th>Quantity</th>
+            <th>Expiration Date</th>
+            <th>Lot Number</th>
+            <th>Kit Serial Number</th> <!-- New column for Kit Serial Number -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in depot_inventory %}
+        <tr>
+            {% if item.bulk_ctm %}
+                <td>Bulk</td>
+                <td>{{ item.bulk_ctm.device }}</td>
+                <td>{{ item.quantity_received }}</td>
+                <td>{{ item.bulk_ctm.expiration_date }}</td>
+                <td>{{ item.bulk_ctm.lot_number }}</td>
+                <td>N/A</td> <!-- Bulk items don't have a Kit Serial Number -->
+            {% elif item.individual_ctm %}
+                <td>Individual</td>
+                <td>{{ item.individual_ctm.device }}</td>
+                <td>{{ item.quantity_received }}</td>
+                <td>{{ item.individual_ctm.expiration_date }}</td>
+                <td>{{ item.individual_ctm.lot_number }}</td>
+                <td>{{ item.individual_ctm.kit_serial_number }}</td> <!-- Display Kit Serial Number -->
+            {% else %}
+                <td colspan="6">No CTM associated</td> <!-- Update colspan to 6 because of the new column -->
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 {% endblock %}
+
+
+

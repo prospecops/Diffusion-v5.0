@@ -30,3 +30,17 @@ class DepotClinicalSiteAssociation(models.Model):
 
     def __str__(self):
         return f"{self.depot.name} - {self.clinical_site.name}"
+
+
+class DepotInventory(models.Model):
+    depot = models.ForeignKey(Depot, on_delete=models.CASCADE)
+    bulk_ctm = models.ForeignKey('supplier.BulkCTM', on_delete=models.CASCADE, null=True, blank=True, related_name="bulk_ctm_inventory")  # Refers to the BulkCTM model in supplier
+    individual_ctm = models.ForeignKey('supplier.IndividualCTM', on_delete=models.CASCADE, null=True, blank=True, related_name="individual_ctm_inventory")  # Refers to the IndividualCTM model in supplier
+    quantity_received = models.PositiveIntegerField()
+
+    def __str__(self):
+        ctm_type = self.bulk_ctm if self.bulk_ctm else self.individual_ctm
+        return f"{self.depot.name} - {ctm_type} - {self.quantity_received}"
+
+
+

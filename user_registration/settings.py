@@ -154,6 +154,31 @@ LOGIN_REDIRECT_URL = '/core/'
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_FORMS = {'signup': 'registration.forms.CustomSignupForm'}
 
+# Logging configuration
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#         # Add your app's logger here:
+#         'registration': {  # Replace 'registration' with your app's name if different
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': False,
+#         },
+#     },
+# }
+
 # ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
 # ACCOUNT_SESSION_REMEMBER = True
 # ACCOUNT_LOGOUT_ON_GET = True

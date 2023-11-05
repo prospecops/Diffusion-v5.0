@@ -1,0 +1,12 @@
+<!-- individual_ctm_modal.html -->
+{% extends 'form_modal/generic_ctm_modal.html' %}
+
+{% block ctm_modal_form %}
+  <!-- Individual CTM specific form field (Kit # / Serial #) -->
+  <div class="mb-3">
+    <label for="kitSerialField" class="form-label">Kit # / Serial #</label>
+    <input type="text" class="form-control" id="kitSerialField" name="kit_serial">
+  </div>
+
+  {{ block.super }} <!-- This inherits all common fields from generic_ctm_modal.html after the Kit # / Serial # field -->
+{% endblock ctm_modal_form %}

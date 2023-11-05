@@ -1,6 +1,48 @@
 {% extends 'supplier/supplier_base_generic.html' %}
 
+{% load static %} <!-- Ensure static is loaded to use static file references -->
+
 {% block supplier_content %}
-    <h1>Depot Inventory Shipments</h1>
-    <!-- rest of your template here -->
+<h1>Depot Inventory Shipments</h1>
+
+<form method="post" id="depotInventoryForm">
+    {% csrf_token %}
+
+    <div class="fieldWrapper">
+        {{ form.depot.label_tag }} {{ form.depot }}
+    </div>
+
+    <!-- Add the new buttons for CTM -->
+    <div class="buttonsWrapper">
+        <!-- Individual CTM Button -->
+        <button type="button" class="btn btn-primary" id="addIndividualCTMButton" data-bs-toggle="modal" data-bs-target="#individualCTMModal">
+            Add Individual CTM
+        </button>
+        <!-- Bulk CTM Button with modal trigger -->
+        <button type="button" class="btn btn-primary" id="addBulkCTMButton" data-bs-toggle="modal" data-bs-target="#bulkCTMModal">
+            Add Bulk CTM
+        </button>
+    </div>
+
+    <div class="fieldWrapper">
+        {{ form.bulk_ctms.label_tag }} {{ form.bulk_ctms }}
+    </div>
+
+    <div class="fieldWrapper">
+        {{ form.individual_ctms.label_tag }} {{ form.individual_ctms }}
+    </div>
+
+    <input type="submit" value="Assign Inventory">
+</form>
+
+<!-- Individual CTM Modal -->
+{% include 'form_modal/individual_ctm_modal.html' with modal_id='individualCTMModal' modal_title='Add/Edit Individual CTM' modal_save_button_text='Save' individual_form=individual_ctm_form %}
+
+<!-- Bulk CTM Modal -->
+{% include 'form_modal/bulk_ctm_modal.html' with modal_id='bulkCTMModal' modal_title='Add Bulk CTM' modal_save_button_text='Save' bulk_form=bulk_ctm_form %}
+
+{% endblock %}
+
+{% block extra_script %}
+<script src="{% static 'js/modal-handler.js' %}"></script> <!-- Include the modal related JS -->
 {% endblock %}

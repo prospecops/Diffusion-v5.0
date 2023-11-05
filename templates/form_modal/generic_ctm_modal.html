@@ -1,0 +1,40 @@
+<!-- generic_ctm_modal.html -->
+{% extends 'form_modal/reusable_modal.html' %}
+
+{% block modal_body %}
+<div class="modal-body">
+  <!-- Begin common CTM form elements -->
+  {% block ctm_modal_form %}
+  <form>
+    <!-- Drug Dropdown -->
+    <div class="mb-3">
+      <label for="drugField" class="form-label">Drug</label>
+      <select class="form-select" id="drugField" name="drug">
+        {% for drug in drug_choices %}
+        <option value="{{ drug.value }}">{{ drug.display }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Quantity -->
+    <div class="mb-3">
+      <label for="quantityField" class="form-label">Quantity</label>
+      <input type="number" class="form-control" id="quantityField" name="quantity">
+    </div>
+
+    <!-- Expiration Date -->
+    <div class="mb-3">
+      <label for="expirationDateField" class="form-label">Expiration Date</label>
+      <input type="date" class="form-control" id="expirationDateField" name="expiration_date">
+    </div>
+
+    <!-- Lot # -->
+    <div class="mb-3">
+      <label for="lotField" class="form-label">Lot #</label>
+      <input type="text" class="form-control" id="lotField" name="lot_number">
+    </div>
+  </form>
+  {% endblock ctm_modal_form %}
+  <!-- End common CTM form elements -->
+</div>
+{% endblock modal_body %}
