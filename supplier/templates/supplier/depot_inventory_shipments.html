@@ -24,15 +24,7 @@
         </button>
     </div>
 
-    <div class="fieldWrapper">
-        {{ form.bulk_ctms.label_tag }} {{ form.bulk_ctms }}
-    </div>
-
-    <div class="fieldWrapper">
-        {{ form.individual_ctms.label_tag }} {{ form.individual_ctms }}
-    </div>
-
-    <input type="submit" value="Assign Inventory">
+    <!-- The "Assign Inventory" submit button has been removed here -->
 </form>
 
 <!-- Individual CTM Modal -->
@@ -44,5 +36,8 @@
 {% endblock %}
 
 {% block extra_script %}
-<script src="{% static 'js/modal-handler.js' %}"></script> <!-- Include the modal related JS -->
+<script src="{% static 'js/modal-handler.js' %}"></script>
 {% endblock %}
+
+
+

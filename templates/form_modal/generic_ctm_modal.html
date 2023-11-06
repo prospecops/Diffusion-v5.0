@@ -4,16 +4,21 @@
 {% block modal_body %}
 <div class="modal-body">
   <!-- Begin common CTM form elements -->
-  {% block ctm_modal_form %}
   <form>
-    <!-- Drug Dropdown -->
+    <!-- CTM Dropdown -->
     <div class="mb-3">
-      <label for="drugField" class="form-label">Drug</label>
-      <select class="form-select" id="drugField" name="drug">
-        {% for drug in drug_choices %}
-        <option value="{{ drug.value }}">{{ drug.display }}</option>
+      <label for="ctmField" class="form-label">CTM</label>
+      <select class="form-select" id="ctmField" name="ctm">
+        {% for ctm in ctm_choices %}
+        <option value="{{ ctm.value }}">{{ ctm.display }}</option>
         {% endfor %}
       </select>
+    </div>
+
+    <!-- Lot # -->
+    <div class="mb-3">
+      <label for="lotField" class="form-label">Lot #</label>
+      <input type="text" class="form-control" id="lotField" name="lot_number">
     </div>
 
     <!-- Quantity -->
@@ -27,14 +32,8 @@
       <label for="expirationDateField" class="form-label">Expiration Date</label>
       <input type="date" class="form-control" id="expirationDateField" name="expiration_date">
     </div>
-
-    <!-- Lot # -->
-    <div class="mb-3">
-      <label for="lotField" class="form-label">Lot #</label>
-      <input type="text" class="form-control" id="lotField" name="lot_number">
-    </div>
   </form>
-  {% endblock ctm_modal_form %}
   <!-- End common CTM form elements -->
 </div>
 {% endblock modal_body %}
+

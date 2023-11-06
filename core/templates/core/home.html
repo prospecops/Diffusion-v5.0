@@ -1,8 +1,17 @@
 {% extends "core/base_generic.html" %}
 
 {% block content %}
-  <h2>Home</h2>
-  <p>Welcome, {{ user.username }}!</p>
-  <p><a href="{% url 'account_logout' %}">Logout</a></p>
+  <div class="container mt-3"> <!-- Bootstrap container for proper alignment and padding -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="py-4 text-center" style="background-color: var(--secondary-color); border-radius: .5rem;">
+          <h2 class="mt-0" style="color: var(--primary-color);">Home</h2>
+          <p class="lead" style="color: var(--primary-color);">Welcome, {{ user.username }}!</p>
+        </div>
+      </div>
+    </div>
+    <!-- Additional content can go here -->
+  </div>
 {% endblock %}
+
 

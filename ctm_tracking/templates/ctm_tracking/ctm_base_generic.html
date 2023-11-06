@@ -6,15 +6,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 {% endblock %}
 
+{% block nav %}
+    <!-- The CTM Tracking navigation is now included in the core/base_generic.html -->
+{% endblock %}
+
 {% block content %}
-    <header>
-        <ul class="sub-navigation">
-            <li><a href="{% url 'ctm_tracking:drug_inventory' %}">Drug / Device Inventory</a></li>
-            <li><a href="{% url 'ctm_tracking:drug_shipments' %}">Drug Shipments</a></li>
-            <li><a href="{% url 'ctm_tracking:drug_request' %}">Drug Request</a></li>
-            <li><a href="{% url 'ctm_tracking:accountability' %}">Accountability</a></li>
-            <li><a href="{% url 'ctm_tracking:final_disposition' %}">Final Disposition</a></li>
-        </ul>
-    </header>
+    <!-- Your custom content goes here -->
     {% block ctm_content %}{% endblock %}
 {% endblock %}
+

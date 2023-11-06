@@ -1,36 +1,77 @@
-.main-navigation,
-.sub-navigation {
+/* styles.css */
+
+:root {
+    --primary-color: #5a4b81; /* Purple */
+    --secondary-color: #d6d6d6; /* Light grey, for better visibility */
+    --accent-color: #8bc34a; /* Green */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--secondary-color);
+    margin: 0;
+    padding: 0;
+}
+
+.top-section {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1rem; /* Adjusted to add padding on top and bottom */
+    display: flex; /* Ensures flexbox layout */
+    justify-content: space-between; /* Distributes space between elements */
+    align-items: center; /* Vertically aligns items */
+}
+
+.logo img {
+    height: 50px; /* Adjusted from width to height to maintain aspect ratio */
+}
+
+/* Main navigation styles */
+.main-navigation ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
-    position: sticky;
-    top: 0;
+    display: flex;
+    justify-content: center; /* Aligns navigation items to the center */
+    align-items: center;
+    flex-grow: 1; /* Allows the list to expand to fill available space */
+    gap: 20px; /* Evenly spaces the navigation items */
 }
 
-.main-navigation {
-    background-color: #333;
-}
-
-.sub-navigation {
-    background-color: #555;
-}
-
-.main-navigation li,
-.sub-navigation li {
-    float: left;
-}
-
-.main-navigation li a,
-.sub-navigation li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
+.main-navigation li a {
+    padding: 0.5rem 1rem; /* Increased padding for a button-like appearance */
     text-decoration: none;
+    color: white; /* Ensures text is white */
+    background-color: transparent; /* Clear background for a 'ghost button' style */
+    border: 1px solid white; /* White border to resemble a button */
+    border-radius: 5px; /* Rounded corners */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
 }
 
 .main-navigation li a:hover,
-.sub-navigation li a:hover {
-    background-color: #111;
+.main-navigation li a:focus {
+    background-color: rgba(255, 255, 255, 0.2); /* Slight background color on hover */
+    color: white; /* White text on hover */
+    border-color: rgba(255, 255, 255, 0.5); /* Lighter border on hover */
 }
+
+/* Logout button styles */
+.logout-button-container .btn {
+    padding: 0.5rem 1rem;
+    color: white; /* White text for the logout button */
+    background-color: var(--accent-color); /* Accent color for the logout button */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.logout-button-container .btn:hover {
+    background-color: #6fa22e; /* A darker shade of the accent color on hover */
+}
+
+/*!* Add this to your styles.css *!*/
+/*.nav .dropdown-menu {*/
+/*    margin-top: 2.3em; !* Adjust this value as needed to lower the menu *!*/
+/*}*/
+

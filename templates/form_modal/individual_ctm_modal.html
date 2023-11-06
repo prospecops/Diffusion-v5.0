@@ -1,12 +1,53 @@
 <!-- individual_ctm_modal.html -->
 {% extends 'form_modal/generic_ctm_modal.html' %}
+{% load static %}
 
-{% block ctm_modal_form %}
-  <!-- Individual CTM specific form field (Kit # / Serial #) -->
-  <div class="mb-3">
-    <label for="kitSerialField" class="form-label">Kit # / Serial #</label>
-    <input type="text" class="form-control" id="kitSerialField" name="kit_serial">
-  </div>
+{% block modal_body %}
+<div class="modal-body">
+  <form>
+    <!-- CTM Dropdown -->
+    <div class="mb-3">
+      <label for="ctmField" class="form-label">CTM</label>
+      <select class="form-select" id="ctmField" name="ctm">
+        {% for ctm_name in unique_ctm_names %}
+          <option value="{{ ctm_name }}">{{ ctm_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
 
-  {{ block.super }} <!-- This inherits all common fields from generic_ctm_modal.html after the Kit # / Serial # field -->
-{% endblock ctm_modal_form %}
+
+    <!-- Kit / Serial Number Dropdown -->
+    <div class="mb-3">
+      <label for="kitSerialField" class="form-label">Kit # / Serial #</label>
+      <select class="form-select" id="kitSerialField" name="kit_serial_number">
+        <!-- Options will be populated based on CTM selection via JavaScript -->
+      </select>
+    </div>
+
+    <!-- Lot # -->
+    <div class="mb-3">
+      <label for="lotField" class="form-label">Lot #</label>
+      <input type="text" class="form-control" id="lotField" name="lot_number" readonly>
+    </div>
+
+    <!-- Quantity -->
+    <div class="mb-3">
+      <label for="quantityField" class="form-label">Quantity</label>
+      <input type="number" class="form-control" id="quantityField" name="quantity" readonly>
+    </div>
+
+    <!-- Expiration Date -->
+    <div class="mb-3">
+      <label for="expirationDateField" class="form-label">Expiration Date</label>
+      <input type="date" class="form-control" id="expirationDateField" name="expiration_date" readonly>
+    </div>
+  </form>
+</div>
+{% endblock modal_body %}
+
+{% block extra_js %}
+  {{ ctms_with_kits_json|json_script:"ctmsWithKitsData" }}
+  <script src="{% static 'js/update_ctm_fields.js' %}"></script>
+{% endblock %}
+
+

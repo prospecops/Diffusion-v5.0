@@ -3,18 +3,15 @@
 {% load static %}
 
 {% block extra_style %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/supplier_styles.css' %}"> <!-- Assuming you have a CSS file for supplier-specific styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/supplier_styles.css' %}">
+{% endblock %}
+
+{% block nav %}
+    <!-- The Supplier navigation is now included in the core/base_generic.html -->
 {% endblock %}
 
 {% block content %}
-    <header>
-        <ul class="sub-navigation">
-            <li><a href="{% url 'supplier:create_inventory' %}">Create Inventory</a></li>
-            <li><a href="{% url 'supplier:supplier_inventory' %}">Supplier Inventory</a></li>
-            <li><a href="{% url 'supplier:depot_inventory_shipments' %}">Depot Inventory Shipments</a></li>
-            <li><a href="{% url 'supplier:returned_inventory' %}">Returned Inventory</a></li>
-        </ul>
-    </header>
+    <!-- Your custom content goes here -->
     {% block supplier_content %}{% endblock %}
 {% endblock %}
 

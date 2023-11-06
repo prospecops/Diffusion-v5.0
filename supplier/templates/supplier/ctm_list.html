@@ -1,6 +1,6 @@
 {% for ctm in ctm_list %}
     <div>
-        <h2>{{ ctm.device }}</h2>
+        <h2>{{ ctm.ctm_name }}</h2> <!-- Updated from ctm.device to ctm.ctm_name -->
         <p>Type: {{ ctm.ctm_type }}</p>
         <p>Lot Number: {{ ctm.lot_number }}</p>
         <p>Quantity: {{ ctm.quantity }}</p>
@@ -10,3 +10,4 @@
         {% endif %}
     </div>
 {% endfor %}
+

@@ -16,7 +16,7 @@ class CTM(models.Model):
         ('Individual', 'Individual'),
     ]
     ctm_type = models.CharField(max_length=10, choices=CTM_TYPE_CHOICES)
-    device = models.CharField(max_length=200)
+    ctm_name = models.CharField(max_length=200)  # Renamed 'device' to 'ctm_name'
     lot_number = models.CharField(max_length=200)
     quantity = models.PositiveIntegerField()
     expiration_date = models.DateField()
@@ -29,12 +29,14 @@ class BulkCTM(CTM):
     depot = models.ForeignKey('depots.Depot', on_delete=models.CASCADE, null=True, blank=True, related_name="bulk_ctms")
 
     def __str__(self):
-        return f"{self.device} - {self.lot_number}"
+        return f"{self.ctm_name} - {self.lot_number}"  # Updated 'device' to 'ctm_name'
+
 
 class IndividualCTM(CTM):
     kit_serial_number = models.CharField(max_length=100, unique=True)
     depot = models.ForeignKey('depots.Depot', on_delete=models.CASCADE, null=True, blank=True, related_name="individual_ctms")
 
     def __str__(self):
-        return f"{self.device} - {self.kit_serial_number}"
+        return f"{self.ctm_name} - {self.kit_serial_number}"  # Updated 'device' to 'ctm_name'
+
 
