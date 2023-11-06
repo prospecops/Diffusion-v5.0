@@ -1,13 +1,40 @@
+import json
+
 from django.contrib import messages  # Add this import at the beginning of your file
 from django.contrib.auth.decorators import login_required, permission_required
-from django.core import serializers
-from django.db.models import F, Count
-from django.shortcuts import render, redirect
-from django.utils.safestring import mark_safe
+from django.db.models import Value as V, Q
+from django.contrib.postgres.aggregates import ArrayAgg
+from django.db.models.functions import Coalesce
+from django.shortcuts import redirect
+from django.shortcuts import render
 
 from supplier.forms import BulkCTMForm, IndividualCTMForm
 from supplier.models import BulkCTM
 from .models import IndividualCTM
+
+
+@login_required
+@permission_required('supplier.view_supplier_portal', raise_exception=True)
+def depot_inventory_shipments(request):
+    # Your new query using aggregation
+    ctms_with_kits = (IndividualCTM.objects
+                      .values('ctm_name')
+                      .annotate(kit_serial_numbers=ArrayAgg(Coalesce('kit_serial_number', V('N/A'))))
+                      .filter(~Q(kit_serial_numbers=['N/A']))
+                      .distinct()
+                      .order_by('ctm_name'))
+
+    # Converting to JSON
+    ctms_with_kits_json = json.dumps(list(ctms_with_kits))
+
+    # Print to console
+    print(ctms_with_kits_json)  # This will print the JSON to the console where your server is running.
+
+    # Render the template with the context containing the CTM names and related kits
+    return render(request, 'supplier/depot_inventory_shipments.html', {
+        'ctms_with_kits_json': ctms_with_kits_json
+    })
+
 
 
 @login_required
@@ -61,19 +88,6 @@ def supplier_inventory(request):
         'bulk_ctms': bulk_ctms,
     }
     return render(request, 'supplier/supplier_inventory.html', context)
-
-
-@login_required
-@permission_required('supplier.view_supplier_portal', login_url='error_page')
-def depot_inventory_shipments(request):
-    # Get unique ctm_names
-    unique_ctm_names = IndividualCTM.objects.order_by('ctm_name').values_list('ctm_name', flat=True).distinct()
-
-    # Render the template with the context containing the form and the unique CTM names
-    return render(request, 'supplier/depot_inventory_shipments.html', {
-        'unique_ctm_names': unique_ctm_names
-    })
-
 
 
 @login_required

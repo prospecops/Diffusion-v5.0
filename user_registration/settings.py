@@ -78,12 +78,23 @@ WSGI_APPLICATION = 'user_registration.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'diffusion_db_1',
+        'USER': 'prospecops',
+        'PASSWORD': 'Whatever@1',
+        'HOST': 'localhost',  # Or an IP address if your db is not on your local machine
+        'PORT': '5432',  # Default port for PostgreSQL
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

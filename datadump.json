@@ -1,0 +1,804 @@
+[
+{
+  "model": "sites.site",
+  "pk": 1,
+  "fields": {
+    "domain": "example.com",
+    "name": "example.com"
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 1,
+  "fields": {
+    "user": 4,
+    "email": "tahasyed1@live.ca",
+    "verified": true,
+    "primary": true
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 3,
+  "fields": {
+    "user": 6,
+    "email": "prospecops@gmail.com",
+    "verified": true,
+    "primary": true
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2023-06-25T14:32:27.519Z",
+    "user": 5,
+    "content_type": 6,
+    "object_id": "1",
+    "object_repr": "Study Coordinator",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2023-06-25T14:32:38.195Z",
+    "user": 5,
+    "content_type": 6,
+    "object_id": "2",
+    "object_repr": "Inventory Manager",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2023-06-25T14:32:42.940Z",
+    "user": 5,
+    "content_type": 6,
+    "object_id": "3",
+    "object_repr": "Admin",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2023-06-25T14:43:53.568Z",
+    "user": 5,
+    "content_type": 7,
+    "object_id": "4",
+    "object_repr": "test4",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2023-07-02T13:46:08.595Z",
+    "user": 5,
+    "content_type": 7,
+    "object_id": "4",
+    "object_repr": "test4",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2023-07-02T13:46:22.592Z",
+    "user": 5,
+    "content_type": 6,
+    "object_id": "8",
+    "object_repr": "Supplier",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2023-07-02T17:50:30.574Z",
+    "user": 5,
+    "content_type": 6,
+    "object_id": "8",
+    "object_repr": "Supplier",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2023-07-02T17:51:53.564Z",
+    "user": 5,
+    "content_type": 6,
+    "object_id": "8",
+    "object_repr": "Supplier",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2023-10-29T20:26:37.843Z",
+    "user": 5,
+    "content_type": 14,
+    "object_id": "1",
+    "object_repr": "Test Depot 1",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2023-11-01T11:14:23.795Z",
+    "user": 5,
+    "content_type": 10,
+    "object_id": "1",
+    "object_repr": "Test Site 1",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2023-11-01T11:41:05.361Z",
+    "user": 5,
+    "content_type": 10,
+    "object_id": "2",
+    "object_repr": "Test Site 2",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2023-11-01T11:42:09.727Z",
+    "user": 5,
+    "content_type": 14,
+    "object_id": "2",
+    "object_repr": "Test Depot 2",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2023-11-01T11:54:15.645Z",
+    "user": 5,
+    "content_type": 14,
+    "object_id": "3",
+    "object_repr": "Depot 3",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2023-11-01T12:17:35.599Z",
+    "user": 5,
+    "content_type": 10,
+    "object_id": "1",
+    "object_repr": "Test Site 1",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2023-11-01T12:17:53.254Z",
+    "user": 5,
+    "content_type": 14,
+    "object_id": "1",
+    "object_repr": "Depot 1",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Depot Clinical Site Association\", \"object\": \"Depot 1 - Test Site 1\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2023-11-01T17:14:43.322Z",
+    "user": 5,
+    "content_type": 10,
+    "object_id": "2",
+    "object_repr": "Test Site 2",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2023-11-01T17:14:53.035Z",
+    "user": 5,
+    "content_type": 10,
+    "object_id": "3",
+    "object_repr": "Test Site 3",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2023-11-01T17:15:21.129Z",
+    "user": 5,
+    "content_type": 14,
+    "object_id": "1",
+    "object_repr": "Depot 1",
+    "action_flag": 2,
+    "change_message": "[{\"added\": {\"name\": \"Depot Clinical Site Association\", \"object\": \"Depot 1 - Test Site 2\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2023-11-01T17:15:57.631Z",
+    "user": 5,
+    "content_type": 14,
+    "object_id": "2",
+    "object_repr": "Test Depot 2",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Depot Clinical Site Association\", \"object\": \"Test Depot 2 - Test Site 1\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2023-11-02T02:28:03.965Z",
+    "user": 5,
+    "content_type": 7,
+    "object_id": "5",
+    "object_repr": "test6",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2023-11-02T02:38:45.700Z",
+    "user": 5,
+    "content_type": 6,
+    "object_id": "7",
+    "object_repr": "Depot User",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2023-11-02T11:02:00.415Z",
+    "user": 5,
+    "content_type": 14,
+    "object_id": "1",
+    "object_repr": "Depot 1",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"User\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2023-11-02T11:10:12.321Z",
+    "user": 5,
+    "content_type": 6,
+    "object_id": "7",
+    "object_repr": "Depot User",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2023-11-02T11:22:08.270Z",
+    "user": 5,
+    "content_type": 6,
+    "object_id": "7",
+    "object_repr": "Depot User",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2023-11-02T11:23:20.967Z",
+    "user": 5,
+    "content_type": 6,
+    "object_id": "7",
+    "object_repr": "Depot User",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2023-11-02T11:30:21.756Z",
+    "user": 5,
+    "content_type": 6,
+    "object_id": "7",
+    "object_repr": "Depot User",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2023-11-02T11:54:02.049Z",
+    "user": 5,
+    "content_type": 6,
+    "object_id": "7",
+    "object_repr": "Depot User",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2023-11-03T01:26:03.994Z",
+    "user": 5,
+    "content_type": 6,
+    "object_id": "8",
+    "object_repr": "Supplier",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 1,
+  "fields": {
+    "name": "Study Coordinator",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 2,
+  "fields": {
+    "name": "Inventory Manager",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 3,
+  "fields": {
+    "name": "Admin",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 4,
+  "fields": {
+    "name": "Medical Monitor",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 5,
+  "fields": {
+    "name": "Pharmacist",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 6,
+  "fields": {
+    "name": "Clinical Trial Manager",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 7,
+  "fields": {
+    "name": "Depot User",
+    "permissions": [
+      41,
+      59
+    ]
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 8,
+  "fields": {
+    "name": "Supplier",
+    "permissions": [
+      41,
+      46
+    ]
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$y8dBgOaGyxS8pBzAt3eHTG$oX+GZ2r7h3Jl69NFGT0ZzXFyfCXJqW+qf5ZuL0fDOJM=",
+    "last_login": "2023-06-23T16:39:02.637Z",
+    "is_superuser": false,
+    "username": "testing888",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-06-23T16:37:16.214Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$06RTZqlLTvFADPLqpIBgHn$Sgq84DkJlg0UE7VVG+Y1bxLJPjtjVyCjjzKNIF4F610=",
+    "last_login": "2023-06-23T21:42:12.188Z",
+    "is_superuser": false,
+    "username": "testing999",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-06-23T18:09:06.399Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$cJGrqxPmFSYWap3cMYEDbk$u5xGTv9llHiQksaPRzZKG5uaGxqFLkJn5EYWnzq5KKA=",
+    "last_login": "2023-06-24T10:48:01.427Z",
+    "is_superuser": false,
+    "username": "test3",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-06-24T10:47:50.910Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$XMv9kj3RogSS3N55VJV8sT$s2ZsXVNJ7UIxHF5aNQ8ie/zBZoKQX/ZQKisVsQiImuU=",
+    "last_login": "2023-11-05T11:52:39.409Z",
+    "is_superuser": false,
+    "username": "test4",
+    "first_name": "Test",
+    "last_name": "Bro",
+    "email": "tahasyed1@live.ca",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-06-24T11:00:36Z",
+    "groups": [
+      8
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$C6eNVWEgwoAMvu3n9IIKJA$d7oxUd05UAtvjJzxAnXscTJjsGe3dbotK28jaL+t9SE=",
+    "last_login": "2023-11-03T01:19:11.747Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "tahasyed1@live.ca",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2023-06-25T03:37:10.332Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$21l3TLeiftcT2ZTvb0v7bH$BqAfWPJ3WvHfs1G1GDyywmHap5zZWyJJ9WMTK0cgFz0=",
+    "last_login": "2023-11-06T12:01:58.856Z",
+    "is_superuser": false,
+    "username": "depot_tas_qa",
+    "first_name": "",
+    "last_name": "",
+    "email": "prospecops@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-11-02T02:33:15.191Z",
+    "groups": [
+      7
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "ctm_tracking.clinicalsite",
+  "pk": 1,
+  "fields": {
+    "name": "Test Site 1",
+    "address": "ABC 123"
+  }
+},
+{
+  "model": "ctm_tracking.clinicalsite",
+  "pk": 2,
+  "fields": {
+    "name": "Test Site 2",
+    "address": "ABC 123"
+  }
+},
+{
+  "model": "ctm_tracking.clinicalsite",
+  "pk": 3,
+  "fields": {
+    "name": "Test Site 3",
+    "address": "ABC 123"
+  }
+},
+{
+  "model": "supplier.bulkctm",
+  "pk": 1,
+  "fields": {
+    "ctm_type": "bulk",
+    "ctm_name": "Test Bulk",
+    "lot_number": "LotB",
+    "quantity": 10,
+    "expiration_date": "2024-07-13",
+    "depot": 1
+  }
+},
+{
+  "model": "supplier.bulkctm",
+  "pk": 2,
+  "fields": {
+    "ctm_type": "bulk",
+    "ctm_name": "Test Bulk",
+    "lot_number": "LotB",
+    "quantity": 1,
+    "expiration_date": "2024-07-13",
+    "depot": null
+  }
+},
+{
+  "model": "supplier.bulkctm",
+  "pk": 3,
+  "fields": {
+    "ctm_type": "bulk",
+    "ctm_name": "Test Bulk",
+    "lot_number": "LotB",
+    "quantity": 5,
+    "expiration_date": "2024-07-13",
+    "depot": 1
+  }
+},
+{
+  "model": "supplier.bulkctm",
+  "pk": 4,
+  "fields": {
+    "ctm_type": "bulk",
+    "ctm_name": "Test Bulk",
+    "lot_number": "LotB",
+    "quantity": 5,
+    "expiration_date": "2024-07-13",
+    "depot": 2
+  }
+},
+{
+  "model": "supplier.individualctm",
+  "pk": 1,
+  "fields": {
+    "ctm_type": "individual",
+    "ctm_name": "Test Id",
+    "lot_number": "LotA",
+    "quantity": 1,
+    "expiration_date": "2023-07-14",
+    "kit_serial_number": "1001",
+    "depot": 1
+  }
+},
+{
+  "model": "supplier.individualctm",
+  "pk": 2,
+  "fields": {
+    "ctm_type": "individual",
+    "ctm_name": "Test Id",
+    "lot_number": "LotA",
+    "quantity": 1,
+    "expiration_date": "2023-07-14",
+    "kit_serial_number": "1002",
+    "depot": 1
+  }
+},
+{
+  "model": "supplier.individualctm",
+  "pk": 3,
+  "fields": {
+    "ctm_type": "individual",
+    "ctm_name": "Test Id",
+    "lot_number": "LotA",
+    "quantity": 1,
+    "expiration_date": "2023-07-14",
+    "kit_serial_number": "1003",
+    "depot": null
+  }
+},
+{
+  "model": "supplier.individualctm",
+  "pk": 4,
+  "fields": {
+    "ctm_type": "individual",
+    "ctm_name": "Test Id",
+    "lot_number": "LotA",
+    "quantity": 1,
+    "expiration_date": "2023-07-14",
+    "kit_serial_number": "1004",
+    "depot": null
+  }
+},
+{
+  "model": "supplier.individualctm",
+  "pk": 5,
+  "fields": {
+    "ctm_type": "individual",
+    "ctm_name": "Test Id",
+    "lot_number": "LotA",
+    "quantity": 1,
+    "expiration_date": "2023-07-14",
+    "kit_serial_number": "1005",
+    "depot": null
+  }
+},
+{
+  "model": "supplier.individualctm",
+  "pk": 6,
+  "fields": {
+    "ctm_type": "individual",
+    "ctm_name": "Test Id",
+    "lot_number": "LotA",
+    "quantity": 1,
+    "expiration_date": "2023-07-14",
+    "kit_serial_number": "1006",
+    "depot": null
+  }
+},
+{
+  "model": "supplier.individualctm",
+  "pk": 7,
+  "fields": {
+    "ctm_type": "individual",
+    "ctm_name": "Test Id",
+    "lot_number": "LotA",
+    "quantity": 1,
+    "expiration_date": "2023-07-14",
+    "kit_serial_number": "1007",
+    "depot": null
+  }
+},
+{
+  "model": "supplier.individualctm",
+  "pk": 8,
+  "fields": {
+    "ctm_type": "individual",
+    "ctm_name": "TestB",
+    "lot_number": "LotB",
+    "quantity": 1,
+    "expiration_date": "2023-07-14",
+    "kit_serial_number": "1008",
+    "depot": null
+  }
+},
+{
+  "model": "depots.depot",
+  "pk": 1,
+  "fields": {
+    "name": "Depot 1",
+    "address": "ABC 123",
+    "user": 6
+  }
+},
+{
+  "model": "depots.depot",
+  "pk": 2,
+  "fields": {
+    "name": "Test Depot 2",
+    "address": "ABC 123",
+    "user": null
+  }
+},
+{
+  "model": "depots.depotclinicalsiteassociation",
+  "pk": 1,
+  "fields": {
+    "depot": 1,
+    "clinical_site": 1
+  }
+},
+{
+  "model": "depots.depotclinicalsiteassociation",
+  "pk": 2,
+  "fields": {
+    "depot": 1,
+    "clinical_site": 2
+  }
+},
+{
+  "model": "depots.depotclinicalsiteassociation",
+  "pk": 3,
+  "fields": {
+    "depot": 2,
+    "clinical_site": 1
+  }
+},
+{
+  "model": "depots.depotinventory",
+  "pk": 1,
+  "fields": {
+    "depot": 1,
+    "bulk_ctm": null,
+    "individual_ctm": 2,
+    "quantity_received": 1
+  }
+}
+]

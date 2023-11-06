@@ -15,7 +15,6 @@
       </select>
     </div>
 
-
     <!-- Kit / Serial Number Dropdown -->
     <div class="mb-3">
       <label for="kitSerialField" class="form-label">Kit # / Serial #</label>
@@ -46,8 +45,8 @@
 {% endblock modal_body %}
 
 {% block extra_js %}
-  {{ ctms_with_kits_json|json_script:"ctmsWithKitsData" }}
+  <!-- The ctmsWithKitsData is now included in the depot_inventory_shipments.html, so we don't need to duplicate it here -->
+  <!-- Make sure update_ctm_fields.js utilizes the ctmsWithKitsData from the global scope -->
   <script src="{% static 'js/update_ctm_fields.js' %}"></script>
 {% endblock %}
-
 

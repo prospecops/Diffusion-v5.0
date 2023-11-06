@@ -28,7 +28,8 @@
 </form>
 
 <!-- Individual CTM Modal -->
-{% include 'form_modal/individual_ctm_modal.html' with modal_id='individualCTMModal' modal_title='Add/Edit Individual CTM' modal_save_button_text='Save' individual_form=individual_ctm_form %}
+{% include 'form_modal/individual_ctm_modal.html' with modal_id='individualCTMModal' modal_title='Add/Edit Individual CTM' modal_save_button_text='Save' individual_form=individual_ctm_form ctms_with_kits_json=ctms_with_kits_json %}
+
 
 <!-- Bulk CTM Modal -->
 {% include 'form_modal/bulk_ctm_modal.html' with modal_id='bulkCTMModal' modal_title='Add Bulk CTM' modal_save_button_text='Save' bulk_form=bulk_ctm_form %}
@@ -37,7 +38,11 @@
 
 {% block extra_script %}
 <script src="{% static 'js/modal-handler.js' %}"></script>
+<!-- Include the ctmsWithKitsData for the update_ctm_fields.js script -->
+{{ ctms_with_kits_json|json_script:"ctmsWithKitsData" }}
+<script src="{% static 'js/update_ctm_fields.js' %}"></script>
 {% endblock %}
+
 
 
 
