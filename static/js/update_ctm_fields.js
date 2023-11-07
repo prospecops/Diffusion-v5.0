@@ -2,51 +2,71 @@
 
 // Event handling after DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('DOM fully loaded and parsed');
-
+  // Define references to the dropdowns and input fields
   const ctmField = document.getElementById('ctmField');
-  console.log('ctmField element:', ctmField);
+  const kitSerialField = document.getElementById('kitSerialField');
+  const lotField = document.getElementById('lotField');
+  const quantityField = document.getElementById('quantityField');
+  const expirationDateField = document.getElementById('expirationDateField');
 
+  // Fetch the ctmsWithKitsData from the script tag
+  const ctmsWithKitsData = JSON.parse(document.getElementById('ctmsWithKitsData').textContent);
+
+  // Function to reset Kit/Serial Numbers
+  const resetKitSerialNumbers = () => {
+    kitSerialField.innerHTML = '<option value="" selected>Select Kit/Serial Number</option>'; // Reset to default option
+  };
+
+  // Function to clear Kit details fields
+  const clearKitDetails = () => {
+    lotField.value = '';
+    quantityField.value = '';
+    expirationDateField.value = '';
+  };
+
+  // Function to update the kit serial numbers based on selected CTM
   const updateKitSerialNumbers = (selectedCtmName) => {
-    console.log('updateKitSerialNumbers called with:', selectedCtmName);
-    const kitSerialField = document.getElementById('kitSerialField');
-    kitSerialField.innerHTML = ''; // Clear previous options
-
-    // Fetch the ctmsWithKitsData from the script tag
-    const ctmsWithKitsData = JSON.parse(document.getElementById('ctmsWithKitsData').textContent);
-    console.log('Parsed ctmsWithKitsData:', ctmsWithKitsData);
-
-    // Attempt to find the selected CTM and its kits
-    const ctmKits = ctmsWithKitsData.find(ctm => ctm.ctm_name === selectedCtmName);
-    console.log('Selected CTM Kits:', ctmKits);
-
-    if (ctmKits && ctmKits.kit_serial_numbers) {
-      // Append options related to the selected CTM
-      ctmKits.kit_serial_numbers.forEach(serialNumber => {
-        const option = new Option(serialNumber, serialNumber);
+    resetKitSerialNumbers(); // Clear previous options and set default
+    ctmsWithKitsData.forEach(item => {
+      if (item.ctm_name === selectedCtmName) {
+        const option = new Option(item.kit_serial_number, item.kit_serial_number);
         kitSerialField.add(option);
-      });
-      console.log('Kit serial numbers updated for:', selectedCtmName);
-    } else {
-      console.log('No kits found for:', selectedCtmName);
+      }
+    });
+  };
+
+  // Function to update the kit details based on selected Kit Serial Number
+  const updateKitDetails = (selectedSerialNumber) => {
+    const selectedKit = ctmsWithKitsData.find(kit => kit.kit_serial_number === selectedSerialNumber);
+    if (selectedKit) {
+      lotField.value = selectedKit.lot_number;
+      quantityField.value = selectedKit.quantity;
+      expirationDateField.value = selectedKit.expiration_date;
     }
   };
 
-  // Update kit serial numbers when a CTM name is selected
+  // Event listener for CTM field change
   ctmField.addEventListener('change', function() {
-    console.log('CTM field changed:', this.value);
-    updateKitSerialNumbers(this.value);
+    if (this.value) {
+      updateKitSerialNumbers(this.value);
+    } else {
+      resetKitSerialNumbers();
+    }
+    clearKitDetails(); // Clear the details fields whenever CTM changes
   });
 
-  // Initial population of kit serial numbers if there's a preselected CTM
-  if (ctmField.selectedIndex >= 0) {
-    console.log('Initial CTM selected:', ctmField.options[ctmField.selectedIndex].value);
-    updateKitSerialNumbers(ctmField.options[ctmField.selectedIndex].value);
-  } else {
-    console.log('No initial CTM selected');
-  }
-});
+  // Event listener for kit serial field change
+  kitSerialField.addEventListener('change', function() {
+    if (this.value) {
+      updateKitDetails(this.value);
+    } else {
+      clearKitDetails();
+    }
+  });
 
-console.log('update_ctm_fields.js script executed');
+  // Call reset functions on initial load to ensure proper state
+  resetKitSerialNumbers();
+  clearKitDetails();
+});
 
 

@@ -1,41 +1,35 @@
 import json
-
-from django.contrib import messages  # Add this import at the beginning of your file
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
-from django.db.models import Value as V, Q
-from django.contrib.postgres.aggregates import ArrayAgg
-from django.db.models.functions import Coalesce
-from django.shortcuts import redirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from supplier.forms import BulkCTMForm, IndividualCTMForm
-from supplier.models import BulkCTM
-from .models import IndividualCTM
-
-
+from .forms import BulkCTMForm, IndividualCTMForm
+from .models import IndividualCTM, BulkCTM
 from django.utils.safestring import mark_safe
+from django.core.serializers.json import DjangoJSONEncoder
 
 @login_required
 @permission_required('supplier.view_supplier_portal', raise_exception=True)
 def depot_inventory_shipments(request):
-    # Your new query using aggregation
+    # Query that selects kit_serial_number, lot_number, quantity, and expiration_date
     ctms_with_kits = (IndividualCTM.objects
-                      .values('ctm_name')
-                      .annotate(kit_serial_numbers=ArrayAgg(Coalesce('kit_serial_number', V('N/A'))))
-                      .filter(~Q(kit_serial_numbers=['N/A']))
+                      .values('ctm_name', 'kit_serial_number', 'lot_number', 'quantity', 'expiration_date')
+                      .filter(kit_serial_number__isnull=False)
                       .distinct()
-                      .order_by('ctm_name'))
+                      .order_by('ctm_name', 'kit_serial_number'))
 
     # Get distinct CTM names for the dropdown
     unique_ctm_names = IndividualCTM.objects.order_by('ctm_name').values_list('ctm_name', flat=True).distinct()
 
-    # Converting to JSON and marking as safe
-    ctms_with_kits_json = mark_safe(json.dumps(list(ctms_with_kits)))
+    # Serialize the data for the context
+    ctms_with_kits_json = mark_safe(json.dumps(list(ctms_with_kits), cls=DjangoJSONEncoder))
 
     return render(request, 'supplier/depot_inventory_shipments.html', {
         'unique_ctm_names': unique_ctm_names,
         'ctms_with_kits_json': ctms_with_kits_json
     })
+
+
 
 @login_required
 @permission_required('supplier.view_supplier_portal', login_url='error_page')

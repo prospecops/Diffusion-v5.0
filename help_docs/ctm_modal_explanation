@@ -1,0 +1,66 @@
+Given the code you have provided, here’s a step-by-step guide to setting up a modal in a Django application to display CTM (Clinical Trial medication) and its associated kits:
+
+Step 1: Setup Models
+Your models.py should define the models related to the CTMs. It looks like you've defined IndividualCTM which can have multiple kit serial numbers.
+
+Step 2: Create Views
+Your views.py file contains the depot_inventory_shipments view. This view is doing the following:
+
+It is fetching all individual CTMs along with their kit serial numbers using Django’s ORM aggregation functions.
+It is passing two context variables to the template:
+unique_ctm_names: A list of distinct CTM names.
+ctms_with_kits_json: A JSON structure containing CTMs and their associated kits, marked as safe to be used in your JavaScript code without being escaped.
+Step 3: Setup Templates
+You have depot_inventory_shipments.html and individual_ctm_modal.html.
+
+The depot_inventory_shipments.html template is the main template that will display your form and modals. This template:
+
+Extends a base template.
+Includes the individual_ctm_modal.html with necessary context variables.
+The individual_ctm_modal.html is used for the modal's content. It has:
+
+A dropdown for selecting CTMs.
+A dropdown for selecting kit serial numbers which will be populated via JavaScript.
+Other form fields for lot number, quantity, and expiration date.
+Step 4: Include JavaScript
+The JavaScript file update_ctm_fields.js contains the logic for:
+
+Populating the kit serial number dropdown based on the selected CTM.
+Parsing the JSON with CTMs and kits that's embedded in the HTML page.
+Step 5: Integration Steps
+Database Setup:
+Make sure that your database is properly set up with the IndividualCTM entries filled in as needed.
+
+View Logic:
+When the depot_inventory_shipments view is called, it should execute the aggregation query to get the CTMs and associated kits, serialize it to JSON, and pass it to the template.
+
+Template Rendering:
+Ensure that the depot_inventory_shipments.html template extends the correct base template and includes the individual_ctm_modal.html.
+
+JavaScript Inclusion:
+The JSON data for CTMs and kits should be included in the depot_inventory_shipments.html template as a script tag with the type application/json. This makes it available in the global scope for your update_ctm_fields.js script to use.
+
+Static Files:
+Make sure that your static files (JS, CSS, etc.) are properly set up in your Django project.
+
+User Interaction:
+When a user selects a CTM from the dropdown in the modal, the JavaScript should:
+
+Fetch the associated kits from the JSON data.
+Populate the kit serial number dropdown with these values.
+Permissions:
+Check that the user has the appropriate permissions to view the supplier portal and thus the CTMs.
+
+Step 6: Testing
+Test the CTM Dropdown: When a user changes the selection in the CTM dropdown, the kit serial numbers should update accordingly.
+Test Initial Load: Ensure that when the modal opens, the CTM dropdown is populated, and if there is a preselected value, the kit serial numbers are also populated.
+Step 7: Deploy
+Once everything is tested and working correctly in your development environment, you can deploy your changes to the live server.
+
+Remember to run manage.py collectstatic if you're not in debug mode to make sure all your static files are served correctly.
+
+This guide assumes that the rest of the Django project is set up correctly and that you have the required static files, templates, and permissions configuration in place.
+
+
+
+
