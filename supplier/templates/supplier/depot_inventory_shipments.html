@@ -24,11 +24,11 @@
         </button>
     </div>
 
-    <!-- The "Assign Inventory" submit button has been removed here -->
 </form>
 
 <!-- Individual CTM Modal -->
-{% include 'form_modal/individual_ctm_modal.html' with modal_id='individualCTMModal' modal_title='Add/Edit Individual CTM' modal_save_button_text='Save' individual_form=individual_ctm_form ctms_with_kits_json=ctms_with_kits_json %}
+{% include 'form_modal/individual_ctm_modal.html' with modal_id='individualCTMModal' modal_title='Add/Edit Individual CTM' modal_save_button_text='Save' individual_form=individual_ctm_form ctms_with_kits_json=ctms_with_kits_json unique_ctm_names=unique_ctm_names %}
+
 
 
 <!-- Bulk CTM Modal -->
@@ -38,11 +38,8 @@
 
 {% block extra_script %}
 <script src="{% static 'js/modal-handler.js' %}"></script>
-<!-- Include the ctmsWithKitsData for the update_ctm_fields.js script -->
-{{ ctms_with_kits_json|json_script:"ctmsWithKitsData" }}
+<script id="ctmsWithKitsData" type="application/json">{{ ctms_with_kits_json }}</script>
 <script src="{% static 'js/update_ctm_fields.js' %}"></script>
 {% endblock %}
-
-
 
 

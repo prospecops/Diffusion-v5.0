@@ -13,6 +13,8 @@ from supplier.models import BulkCTM
 from .models import IndividualCTM
 
 
+from django.utils.safestring import mark_safe
+
 @login_required
 @permission_required('supplier.view_supplier_portal', raise_exception=True)
 def depot_inventory_shipments(request):
@@ -24,18 +26,16 @@ def depot_inventory_shipments(request):
                       .distinct()
                       .order_by('ctm_name'))
 
-    # Converting to JSON
-    ctms_with_kits_json = json.dumps(list(ctms_with_kits))
+    # Get distinct CTM names for the dropdown
+    unique_ctm_names = IndividualCTM.objects.order_by('ctm_name').values_list('ctm_name', flat=True).distinct()
 
-    # Print to console
-    print(ctms_with_kits_json)  # This will print the JSON to the console where your server is running.
+    # Converting to JSON and marking as safe
+    ctms_with_kits_json = mark_safe(json.dumps(list(ctms_with_kits)))
 
-    # Render the template with the context containing the CTM names and related kits
     return render(request, 'supplier/depot_inventory_shipments.html', {
+        'unique_ctm_names': unique_ctm_names,
         'ctms_with_kits_json': ctms_with_kits_json
     })
-
-
 
 @login_required
 @permission_required('supplier.view_supplier_portal', login_url='error_page')
