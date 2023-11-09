@@ -27,19 +27,20 @@
 </form>
 
 <!-- Individual CTM Modal -->
-{% include 'form_modal/individual_ctm_modal.html' with modal_id='individualCTMModal' modal_title='Add/Edit Individual CTM' modal_save_button_text='Save' individual_form=individual_ctm_form ctms_with_kits_json=ctms_with_kits_json unique_ctm_names=unique_ctm_names %}
-
-
+{% include 'form_modal/individual_ctm_modal.html' with modal_id='individualCTMModal' modal_title='Add/Edit Individual CTM' modal_save_button_text='Save' unique_ctm_names=unique_individual_ctm_names %}
 
 <!-- Bulk CTM Modal -->
-{% include 'form_modal/bulk_ctm_modal.html' with modal_id='bulkCTMModal' modal_title='Add Bulk CTM' modal_save_button_text='Save' bulk_form=bulk_ctm_form %}
+{% include 'form_modal/bulk_ctm_modal.html' with modal_id='bulkCTMModal' modal_title='Add/Edit Bulk CTM' modal_save_button_text='Save' unique_bulk_ctm_names=unique_bulk_ctm_names %}
 
 {% endblock %}
 
 {% block extra_script %}
 <script src="{% static 'js/modal-handler.js' %}"></script>
 <script id="ctmsWithKitsData" type="application/json">{{ ctms_with_kits_json }}</script>
-<script src="{% static 'js/update_ctm_fields.js' %}"></script>
+<script id="bulkCtmsData" type="application/json">{{ bulk_ctms_json }}</script> <!-- Add this line -->
+<script src="{% static 'js/update_individual_ctm_fields.js' %}"></script>
+<script src="{% static 'js/update_bulk_ctm_fields.js' %}"></script>
 {% endblock %}
+
 
 

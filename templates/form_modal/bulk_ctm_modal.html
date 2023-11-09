@@ -1,10 +1,58 @@
 <!-- bulk_ctm_modal.html -->
 {% extends 'form_modal/generic_ctm_modal.html' %}
+{% load static %}
 
-{% block ctm_modal_form %}
-  {{ form.ctm.label_tag }} <!-- This is the updated line to show the ctm label -->
-  {{ form.ctm }} <!-- This is the updated line to show the ctm dropdown -->
+{% block modal_header %}
+<div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem;">
+  <h5 class="modal-title" id="bulkCtmModalLabel" style="margin-left: 1rem;">{{ modal_title }}</h5>
+  <div>
+    <button type="button" class="btn btn-primary" id="bulkSaveButton">{{ modal_save_button_text | default:"Save" }}</button>
+    <button type="button" class="btn btn-secondary" id="bulkSaveAddNewButton">{{ modal_save_add_new_button_text | default:"Save and Add New" }}</button>
+    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close" style="margin-right: 1rem;">Close</button>
+  </div>
+</div>
+{% endblock modal_header %}
 
-  {{ block.super }} <!-- This will include all other fields from generic_ctm_modal.html's ctm_modal_form block -->
-  <!-- No additional bulk specific fields are added here -->
-{% endblock ctm_modal_form %}
+{% block modal_body %}
+<div class="modal-body">
+  <form>
+    <!-- Updated CTM Dropdown ID for bulk CTM -->
+    <div class="mb-3">
+      <label for="bulkCtmField" class="form-label">CTM</label>
+      <select class="form-select" id="bulkCtmField" name="ctm">
+        <option value="" disabled selected>Select CTM</option>
+        {% for ctm_name in unique_bulk_ctm_names %}
+          <option value="{{ ctm_name }}">{{ ctm_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Updated Bulk CTM Modal Lot # Dropdown ID -->
+    <div class="mb-3">
+      <label for="bulkLotField" class="form-label">Lot #</label>
+      <select class="form-select" id="bulkLotField" name="lot_number" disabled>
+        <option value="" disabled selected>Select Lot #</option>
+        <!-- Options will be populated based on CTM selection via JavaScript -->
+      </select>
+    </div>
+
+    <!-- Updated Quantity Input ID -->
+    <div class="mb-3">
+      <label for="bulkQuantityField" class="form-label">Quantity</label>
+      <input type="number" class="form-control" id="bulkQuantityField" name="quantity" readonly>
+    </div>
+
+    <!-- Updated Expiration Date Input ID -->
+    <div class="mb-3">
+      <label for="bulkExpirationDateField" class="form-label">Expiration Date</label>
+      <input type="date" class="form-control" id="bulkExpirationDateField" name="expiration_date" readonly>
+    </div>
+  </form>
+</div>
+{% endblock modal_body %}
+
+{% block extra_js %}
+<script src="{% static 'js/update_bulk_ctm_fields.js' %}"></script>
+{% endblock %}
+
+

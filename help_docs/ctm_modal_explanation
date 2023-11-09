@@ -23,7 +23,7 @@ A dropdown for selecting CTMs.
 A dropdown for selecting kit serial numbers which will be populated via JavaScript.
 Other form fields for lot number, quantity, and expiration date.
 Step 4: Include JavaScript
-The JavaScript file update_ctm_fields.js contains the logic for:
+The JavaScript file update_individual_ctm_fields.js contains the logic for:
 
 Populating the kit serial number dropdown based on the selected CTM.
 Parsing the JSON with CTMs and kits that's embedded in the HTML page.
@@ -38,7 +38,7 @@ Template Rendering:
 Ensure that the depot_inventory_shipments.html template extends the correct base template and includes the individual_ctm_modal.html.
 
 JavaScript Inclusion:
-The JSON data for CTMs and kits should be included in the depot_inventory_shipments.html template as a script tag with the type application/json. This makes it available in the global scope for your update_ctm_fields.js script to use.
+The JSON data for CTMs and kits should be included in the depot_inventory_shipments.html template as a script tag with the type application/json. This makes it available in the global scope for your update_individual_ctm_fields.js script to use.
 
 Static Files:
 Make sure that your static files (JS, CSS, etc.) are properly set up in your Django project.

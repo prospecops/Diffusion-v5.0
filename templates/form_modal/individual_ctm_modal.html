@@ -9,7 +9,8 @@
     <div class="mb-3">
       <label for="ctmField" class="form-label">CTM</label>
       <select class="form-select" id="ctmField" name="ctm">
-        {% for ctm_name in unique_ctm_names %}
+        <option value="" disabled selected>Select CTM</option>
+        {% for ctm_name in unique_individual_ctm_names %}
           <option value="{{ ctm_name }}">{{ ctm_name }}</option>
         {% endfor %}
       </select>
@@ -19,14 +20,15 @@
     <div class="mb-3">
       <label for="kitSerialField" class="form-label">Kit # / Serial #</label>
       <select class="form-select" id="kitSerialField" name="kit_serial_number">
+        <option value="" disabled selected>Select Kit/Serial Number</option>
         <!-- Options will be populated based on CTM selection via JavaScript -->
       </select>
     </div>
 
-    <!-- Lot # -->
+    <!-- Individual CTM Modal Lot # -->
     <div class="mb-3">
-      <label for="lotField" class="form-label">Lot #</label>
-      <input type="text" class="form-control" id="lotField" name="lot_number" readonly>
+      <label for="individualLotField" class="form-label">Lot #</label>
+      <input type="text" class="form-control" id="individualLotField" name="lot_number" readonly>
     </div>
 
     <!-- Quantity -->

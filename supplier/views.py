@@ -1,6 +1,7 @@
 import json
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
+from django.db.models import Sum
 from django.shortcuts import render, redirect
 
 from .forms import BulkCTMForm, IndividualCTMForm
@@ -8,26 +9,45 @@ from .models import IndividualCTM, BulkCTM
 from django.utils.safestring import mark_safe
 from django.core.serializers.json import DjangoJSONEncoder
 
+
 @login_required
 @permission_required('supplier.view_supplier_portal', raise_exception=True)
 def depot_inventory_shipments(request):
-    # Query that selects kit_serial_number, lot_number, quantity, and expiration_date
+    # Query for Individual CTMs with kits
     ctms_with_kits = (IndividualCTM.objects
                       .values('ctm_name', 'kit_serial_number', 'lot_number', 'quantity', 'expiration_date')
                       .filter(kit_serial_number__isnull=False)
                       .distinct()
                       .order_by('ctm_name', 'kit_serial_number'))
 
-    # Get distinct CTM names for the dropdown
-    unique_ctm_names = IndividualCTM.objects.order_by('ctm_name').values_list('ctm_name', flat=True).distinct()
+    # Get distinct Individual CTM names for the dropdown
+    unique_individual_ctm_names = IndividualCTM.objects.order_by('ctm_name').values_list('ctm_name', flat=True).distinct()
 
-    # Serialize the data for the context
+    # Serialize the data for Individual CTMs
     ctms_with_kits_json = mark_safe(json.dumps(list(ctms_with_kits), cls=DjangoJSONEncoder))
 
-    return render(request, 'supplier/depot_inventory_shipments.html', {
-        'unique_ctm_names': unique_ctm_names,
-        'ctms_with_kits_json': ctms_with_kits_json
-    })
+    # Query for all Bulk CTMs
+    bulk_ctms = (BulkCTM.objects
+                 .values('ctm_name', 'lot_number', 'quantity', 'expiration_date')
+                 .order_by('ctm_name', 'lot_number'))
+
+    # Get distinct Bulk CTM names for the dropdown
+    unique_bulk_ctm_names = BulkCTM.objects.order_by('ctm_name').values_list('ctm_name', flat=True).distinct()
+
+    # Serialize the data for Bulk CTMs
+    bulk_ctms_json = mark_safe(json.dumps(list(bulk_ctms), cls=DjangoJSONEncoder))
+
+
+    # Create the context with all required data
+    context = {
+        'unique_individual_ctm_names': unique_individual_ctm_names,
+        'unique_bulk_ctm_names': unique_bulk_ctm_names,
+        'ctms_with_kits_json': ctms_with_kits_json,
+        'bulk_ctms_json': bulk_ctms_json,  # Updated to include non-aggregated data
+        # Add any other context variables you might need
+    }
+
+    return render(request, 'supplier/depot_inventory_shipments.html', context)
 
 
 
