@@ -1,58 +1,70 @@
 {% extends 'supplier/supplier_base_generic.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/supplier_inventory.css' %}">
+{% endblock %}
 
 {% block supplier_content %}
-<h2>Supplier Inventory</h2>
-
-<h3>Individual CTM Inventory</h3>
-<table>
-    <thead>
-        <tr>
-            <th>Kit Serial Number</th>
-            <th>CTM</th>
-            <th>Quantity</th>
-            <th>Expiration Date</th>
-            <th>Lot Number</th>
-            <!-- Add other columns as needed -->
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in individual_ctms %}
-        <tr>
-            <td>{{ item.kit_serial_number }}</td>
-            <td>{{ item.ctm }}</td> <!-- Changed device to ctm -->
-            <td>{{ item.quantity }}</td>
-            <td>{{ item.expiration_date }}</td>
-            <td>{{ item.lot_number }}</td>
-            <!-- Add other data as needed -->
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<h3>Bulk CTM Inventory</h3>
-<table>
-    <thead>
-        <tr>
-            <th>Kit Serial Number</th>
-            <th>CTM</th> <!-- Changed Device to CTM -->
-            <th>Quantity</th>
-            <th>Expiration Date</th>
-            <th>Lot Number</th>
-            <!-- Add other columns as needed -->
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in bulk_ctms %}
-        <tr>
-            <td>{{ item.kit_serial_number }}</td>
-            <td>{{ item.ctm }}</td> <!-- Changed device to ctm -->
-            <td>{{ item.quantity }}</td>
-            <td>{{ item.expiration_date }}</td>
-            <td>{{ item.lot_number }}</td>
-            <!-- Add other data as needed -->
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="inventory-wrapper">
+    <h2 class="inventory-title">Supplier Inventory</h2>
+    <section class="inventory-section">
+        <h3 class="section-title">Individual CTM Inventory</h3>
+        <div class="table-responsive">
+            <table class="inventory-table individual-inventory-table">
+                <thead>
+                    <tr>
+                        <th>Kit Serial Number</th>
+                        <th>CTM Name</th>
+                        <th>Quantity</th>
+                        <th>Expiration Date</th>
+                        <th>Lot Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in individual_ctms %}
+                    <tr>
+                        <td>{{ item.kit_serial_number }}</td>
+                        <td>{{ item.ctm_name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.expiration_date }}</td>
+                        <td>{{ item.lot_number }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="5">No individual CTM inventory available.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="inventory-section">
+        <h3 class="section-title">Bulk CTM Inventory</h3>
+        <div class="table-responsive">
+            <table class="inventory-table bulk-inventory-table">
+                <thead>
+                    <tr>
+                        <th>CTM Name</th>
+                        <th>Quantity</th>
+                        <th>Expiration Date</th>
+                        <th>Lot Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in bulk_ctms %}
+                    <tr>
+                        <td>{{ item.ctm_name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.expiration_date }}</td>
+                        <td>{{ item.lot_number }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="4">No bulk CTM inventory available.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
 {% endblock %}
+
 

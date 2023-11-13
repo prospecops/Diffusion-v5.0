@@ -1,45 +1,67 @@
 {% extends 'supplier/supplier_base_generic.html' %}
 
-{% load static %} <!-- Ensure static is loaded to use static file references -->
+{% load static %} <!-- Load the static to use the static files like CSS and JavaScript -->
 
 {% block supplier_content %}
+<!-- Main content area for depot inventory shipments -->
 <h1>Depot Inventory Shipments</h1>
 
+<!-- Form for adding CTM shipments -->
 <form method="post" id="depotInventoryForm">
-    {% csrf_token %}
-
+    {% csrf_token %} <!-- Security token to prevent CSRF attacks -->
     <div class="fieldWrapper">
-        {{ form.depot.label_tag }} {{ form.depot }}
+        {{ form.depot.label_tag }} {{ form.depot }} <!-- Field for selecting the depot -->
     </div>
 
-    <!-- Add the new buttons for CTM -->
+    <!-- Buttons to trigger modals for adding new CTM entries -->
     <div class="buttonsWrapper">
-        <!-- Individual CTM Button -->
+        <!-- Button to add individual CTM, triggers a modal -->
         <button type="button" class="btn btn-primary" id="addIndividualCTMButton" data-bs-toggle="modal" data-bs-target="#individualCTMModal">
             Add Individual CTM
         </button>
-        <!-- Bulk CTM Button with modal trigger -->
+        <!-- Button to add bulk CTM, triggers a modal -->
         <button type="button" class="btn btn-primary" id="addBulkCTMButton" data-bs-toggle="modal" data-bs-target="#bulkCTMModal">
             Add Bulk CTM
         </button>
     </div>
-
 </form>
 
-<!-- Individual CTM Modal -->
-{% include 'form_modal/individual_ctm_modal.html' with modal_id='individualCTMModal' modal_title='Add/Edit Individual CTM' modal_save_button_text='Save' unique_ctm_names=unique_individual_ctm_names %}
+<!-- The section below will be rendered after including the combined CTM inventory template -->
+{% include "ctm_inventory/ctm_inventory_tables.html" with individual_ctms=individual_ctm_data bulk_ctms=bulk_ctm_data %}
 
-<!-- Bulk CTM Modal -->
-{% include 'form_modal/bulk_ctm_modal.html' with modal_id='bulkCTMModal' modal_title='Add/Edit Bulk CTM' modal_save_button_text='Save' unique_bulk_ctm_names=unique_bulk_ctm_names %}
+<!-- New Section for Select Depot Button and Depot Details Table -->
+<div class="depot-selection-section">
+    <button type="button" class="btn btn-primary" id="selectDepotButton" data-bs-toggle="modal" data-bs-target="#selectDepotModal">
+        Select Depot
+    </button>
+    <!-- Include the new depot details table template -->
+    {% include "ctm_inventory/depot_details_table.html" %}
+</div>
 
+<div class="depot-shipment-button-wrapper">
+    <button type="button" class="btn btn-primary" id="depotShipmentButton" data-bs-toggle="modal" data-bs-target="#shipmentStatusModal">
+        Depot Shipment
+    </button>
+</div>
+
+<!-- Modals for adding/editing CTM inventory -->
+{% include 'form_modal/depot_inventory_shipment_modals/individual_ctm_modal.html' with modal_id='individualCTMModal' modal_title='Add/Edit Individual CTM' modal_save_button_text='Save' unique_ctm_names=unique_individual_ctm_names %}
+{% include 'form_modal/depot_inventory_shipment_modals/bulk_ctm_modal.html' with modal_id='bulkCTMModal' modal_title='Add/Edit Bulk CTM' modal_save_button_text='Save' unique_bulk_ctm_names=unique_bulk_ctm_names %}
+{% include 'form_modal/depot_inventory_shipment_modals/select_depot_modal.html' with modal_id='selectDepotModal' modal_title='Select Depot' modal_save_button_text='Save' %}
+{% include 'form_modal/depot_inventory_shipment_modals/shipment_status_modal.html' with modal_id='shipmentStatusModal' modal_title='Depot Shipment Status' modal_save_button_text='Save' %}
 {% endblock %}
 
 {% block extra_script %}
-<script src="{% static 'js/modal-handler.js' %}"></script>
-<script id="ctmsWithKitsData" type="application/json">{{ ctms_with_kits_json }}</script>
-<script id="bulkCtmsData" type="application/json">{{ bulk_ctms_json }}</script> <!-- Add this line -->
-<script src="{% static 'js/update_individual_ctm_fields.js' %}"></script>
-<script src="{% static 'js/update_bulk_ctm_fields.js' %}"></script>
+<!-- Scripts for modal operation and data handling -->
+<script src="{% static 'js/modal-handler.js' %}"></script> <!-- Handles the modal functionality -->
+<script id="ctmsWithKitsData" type="application/json">{{ ctms_with_kits_json }}</script> <!-- Data for CTMs with kits -->
+<script id="bulkCtmsData" type="application/json">{{ bulk_ctms_json }}</script> <!-- Data for bulk CTMs -->
+<script src="{% static 'js/update_individual_ctm_fields.js' %}"></script> <!-- Handles the updating of individual CTM fields -->
+<script id="depotsData" type="application/json">{{ depots_json }}</script>
+<script src="{% static 'js/update_bulk_ctm_fields.js' %}"></script> <!-- Handles the updating of bulk CTM fields -->
+<script src="{% static 'js/handle_depot_selection.js' %}"></script>
+<script src="{% static 'js/handle_depot_selection.js' %}"></script>
+<script src="{% static 'js/handle_shipment_status.js' %}"></script>
 {% endblock %}
 
 

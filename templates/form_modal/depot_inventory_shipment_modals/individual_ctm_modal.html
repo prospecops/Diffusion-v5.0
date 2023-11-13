@@ -1,0 +1,82 @@
+<!-- form_nodal/depot_inventory_shipment_modals/individual_ctm_modal.html -->
+{% extends 'form_modal/depot_inventory_shipment_modals/generic_ctm_modal.html' %} <!-- This line inherits from a base modal template -->
+{% load static %} <!-- Load the static tag library for access to static files -->
+
+{% block modal_body %}
+<!-- This block defines the content of the modal's body -->
+<div class="modal-body">
+  <form>
+    <!-- CTM Dropdown -->
+    <div class="mb-3">
+      <!-- Margin bottom for spacing -->
+      <label for="ctmField" class="form-label">CTM</label>
+      <!-- Label for the dropdown -->
+      <select class="form-select" id="ctmField" name="ctm">
+        <!-- The select dropdown element for CTMs -->
+        <option value="" disabled selected>Select CTM</option>
+        <!-- Disabled option that prompts the user to make a selection -->
+        {% for ctm_name in unique_individual_ctm_names %}
+          <!-- Loop through each unique CTM name passed from the view -->
+          <option value="{{ ctm_name }}">{{ ctm_name }}</option>
+          <!-- Option element for each CTM name -->
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Kit / Serial Number Dropdown -->
+    <div class="mb-3">
+      <!-- Margin bottom for spacing -->
+      <label for="kitSerialField" class="form-label">Kit # / Serial #</label>
+      <!-- Label for the dropdown -->
+      <select class="form-select" id="kitSerialField" name="kit_serial_number">
+        <!-- The select dropdown for kit/serial numbers -->
+        <option value="" disabled selected>Select Kit/Serial Number</option>
+        <!-- Disabled option that prompts the user to make a selection -->
+        <!-- Options will be dynamically populated based on CTM selection via JavaScript -->
+      </select>
+    </div>
+
+    <!-- Individual CTM Modal Lot # -->
+    <div class="mb-3">
+      <!-- Margin bottom for spacing -->
+      <label for="individualLotField" class="form-label">Lot #</label>
+      <!-- Label for the lot number field -->
+      <input type="text" class="form-control" id="individualLotField" name="lot_number" readonly>
+      <!-- Read-only input field for lot number, to be populated via JavaScript -->
+    </div>
+
+    <!-- Quantity -->
+    <div class="mb-3">
+      <!-- Margin bottom for spacing -->
+      <label for="quantityField" class="form-label">Quantity</label>
+      <!-- Label for the quantity field -->
+      <input type="number" class="form-control" id="quantityField" name="quantity" readonly>
+      <!-- Read-only input field for quantity, to be populated via JavaScript -->
+    </div>
+
+    <!-- Expiration Date -->
+    <div class="mb-3">
+      <!-- Margin bottom for spacing -->
+      <label for="expirationDateField" class="form-label">Expiration Date</label>
+      <!-- Label for the expiration date field -->
+      <input type="date" class="form-control" id="expirationDateField" name="expiration_date" readonly>
+      <!-- Read-only input field for expiration date, to be populated via JavaScript -->
+    </div>
+  </form>
+</div>
+{% endblock modal_body %}
+
+{% block modal_footer %}
+<!-- This is where you'll override or add the modal footer content -->
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary" id="saveButton" disabled>Save</button>
+    <button type="button" class="btn btn-primary" id="saveAddNewButton" disabled>Save and Add New</button>
+</div>
+{% endblock modal_footer %}
+{% block extra_js %}
+<!-- This block is reserved for additional JavaScript specific to this modal -->
+<!-- Currently empty, as scripts can be included via the parent template or another method -->
+{% endblock %}
+
+

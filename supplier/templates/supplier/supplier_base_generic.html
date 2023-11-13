@@ -2,17 +2,21 @@
 
 {% load static %}
 
-{% block extra_style %}
-    <!-- Styles specific to the supplier have been removed -->
+{% block extra_css %}
+    <!-- Placeholder for child templates to inject CSS -->
 {% endblock %}
 
 {% block nav %}
-    <!-- The Supplier navigation is now included in the core/base_generic.html -->
+    <!-- The Supplier navigation can be included here if it's different from the core/base_generic.html -->
 {% endblock %}
 
 {% block content %}
-    <!-- Your custom content goes here -->
-    {% block supplier_content %}{% endblock %}
+    <!-- This block will be overridden by the child template with its specific content -->
+    {% block supplier_content %}
+    {% endblock %}
 {% endblock %}
 
-{% block extra_script %}{% endblock %} <!-- This allows supplier templates to add their own scripts -->
+{% block extra_js %}
+    <!-- Placeholder for child templates to inject JavaScript -->
+{% endblock %}
+

@@ -1,0 +1,48 @@
+<!-- form_nodal/depot_inventory_shipment_modals/generic_ctm_modal.html -->
+{% extends 'form_modal/reusable_modal.html' %} <!-- Inherits from a base modal template that can be reused -->
+
+{% block modal_body %}
+<div class="modal-body">
+  <!-- This div wraps the modal content -->
+
+  <!-- Begin common CTM form elements -->
+  <form>
+    <!-- This form will contain elements common to all CTM modals -->
+
+    <!-- CTM Dropdown -->
+    <div class="mb-3"> <!-- 'mb-3' adds margin-bottom for styling -->
+      <label for="ctmField" class="form-label">CTM</label> <!-- Label for the CTM dropdown -->
+      <select class="form-select" id="ctmField" name="ctm"> <!-- The select dropdown for choosing a CTM -->
+        {% for ctm in ctm_choices %} <!-- Loop through CTM choices provided by the context -->
+        <option value="{{ ctm.value }}">{{ ctm.display }}</option> <!-- Create an option for each CTM choice -->
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Lot # -->
+    <div class="mb-3"> <!-- Margin bottom for consistent styling -->
+      <label for="lotField" class="form-label">Lot #</label> <!-- Label for the lot number field -->
+      <input type="text" class="form-control" id="lotField" name="lot_number">
+      <!-- Text input for entering a lot number, with styling from Bootstrap -->
+    </div>
+
+    <!-- Quantity -->
+    <div class="mb-3"> <!-- Margin bottom for styling and spacing -->
+      <label for="quantityField" class="form-label">Quantity</label> <!-- Label for the quantity input -->
+      <input type="number" class="form-control" id="quantityField" name="quantity">
+      <!-- Number input for entering quantity, allows only numbers to be entered -->
+    </div>
+
+    <!-- Expiration Date -->
+    <div class="mb-3"> <!-- Margin bottom for styling -->
+      <label for="expirationDateField" class="form-label">Expiration Date</label>
+      <!-- Label for the expiration date input -->
+      <input type="date" class="form-control" id="expirationDateField" name="expiration_date">
+      <!-- Date input for selecting an expiration date, with a date picker interface -->
+    </div>
+  </form>
+  <!-- End of common CTM form elements -->
+</div>
+{% endblock modal_body %}
+
+

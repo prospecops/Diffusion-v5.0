@@ -1,27 +1,60 @@
-<!-- reusable_modal.html -->
+<!-- form_modal/reusable_modal.html -->
 {% block modal %}
+<!-- This block defines the overall structure of a modal that can be reused across different parts of the application. -->
+
 <div class="modal fade" id="{{ modal_id }}" tabindex="-1" aria-labelledby="{{ modal_id }}Label" aria-hidden="true">
+  <!-- 'modal fade' are Bootstrap classes for styling and animating modals.
+       'id' dynamically assigns a unique identifier to each modal for individual reference.
+       'aria-labelledby' provides an accessible name for the modal dialog, matching the title ID.
+       'aria-hidden' indicates that the modal is not currently visible to screen readers. -->
+
   <div class="modal-dialog">
+    <!-- Wrapper for the modal content -->
+
     <div class="modal-content">
+      <!-- The container for the content of the modal -->
+
       {% block modal_header %}
+      <!-- This block is for the header section of the modal and can be overridden in child templates. -->
+
       <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem;">
-        <h5 class="modal-title" id="{{ modal_id }}Label" style="margin-left: 1rem;">{{ modal_title }}</h5>
+        <!-- Inline styles are used here for layout purposes, ensuring the title and buttons are spaced out. -->
+
+        <h5 class="modal-title" id="{{ modal_id }}Label" style="margin-left: 1rem;">
+          <!-- The title of the modal, which is dynamically set via 'modal_title'. -->
+          {{ modal_title }}
+        </h5>
+
         <div>
-          <button type="button" class="btn btn-primary" id="saveButton">{{ modal_save_button_text | default:"Save" }}</button>
-          <button type="button" class="btn btn-secondary" id="saveAddNewButton">{{ modal_save_add_new_button_text | default:"Save and Add New" }}</button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close" style="margin-right: 1rem;">Close</button>
+          <!-- Container for the action buttons in the header -->
+
+          <button type="button" class="btn btn-primary" id="saveButton">
+            <!-- The save button, which can trigger an action like submitting a form or saving data. -->
+            {{ modal_save_button_text | default:"Save" }}
+          </button>
+
+          <button type="button" class="btn btn-secondary" id="saveAddNewButton">
+            <!-- An optional secondary action button, for example, to save the current data and reset the form for new input. -->
+            {{ modal_save_add_new_button_text | default:"Save and Add New" }}
+          </button>
+
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close" style="margin-right: 1rem;">
+            <!-- A close button to dismiss the modal, using Bootstrap's 'data-bs-dismiss' attribute. -->
+            Close
+          </button>
         </div>
       </div>
       {% endblock modal_header %}
+
       {% block modal_body %}
+      <!-- This block will contain the body of the modal, where custom content will be injected in child templates. -->
       <div class="modal-body">
-        <!-- Content for the modal goes here, override this block in child templates -->
+        <!-- This is where content specific to each use-case of the modal will be placed. -->
       </div>
       {% endblock modal_body %}
     </div>
   </div>
 </div>
 {% endblock modal %}
-
 
 

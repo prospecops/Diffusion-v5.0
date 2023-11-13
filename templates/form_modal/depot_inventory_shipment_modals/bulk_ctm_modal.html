@@ -1,48 +1,58 @@
-<!-- bulk_ctm_modal.html -->
-{% extends 'form_modal/generic_ctm_modal.html' %}
-{% load static %}
+<!-- form_nodal/depot_inventory_shipment_modals/bulk_ctm_modal.html -->
+<!-- This template extends the generic_ctm_modal.html which contains common modal elements -->
+{% extends 'form_modal/depot_inventory_shipment_modals/generic_ctm_modal.html' %}
+{% load static %} <!-- This tag allows us to include static files like JavaScript or CSS -->
 
 {% block modal_header %}
+<!-- This block defines the content of the modal header including the title and buttons -->
 <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem;">
+  <!-- Modal title displayed at the top of the modal -->
   <h5 class="modal-title" id="bulkCtmModalLabel" style="margin-left: 1rem;">{{ modal_title }}</h5>
   <div>
+    <!-- Button to save the form data -->
     <button type="button" class="btn btn-primary" id="bulkSaveButton">{{ modal_save_button_text | default:"Save" }}</button>
+    <!-- Button to save the current data and reset the form for new input -->
     <button type="button" class="btn btn-secondary" id="bulkSaveAddNewButton">{{ modal_save_add_new_button_text | default:"Save and Add New" }}</button>
+    <!-- Button to close the modal -->
     <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close" style="margin-right: 1rem;">Close</button>
   </div>
 </div>
 {% endblock modal_header %}
 
 {% block modal_body %}
+<!-- This block defines the content of the modal body, mainly the form elements -->
 <div class="modal-body">
   <form>
-    <!-- Updated CTM Dropdown ID for bulk CTM -->
+    <!-- Dropdown for selecting the CTM (Clinical Trial Material) -->
     <div class="mb-3">
       <label for="bulkCtmField" class="form-label">CTM</label>
       <select class="form-select" id="bulkCtmField" name="ctm">
+        <!-- Default option prompting the user to make a selection -->
         <option value="" disabled selected>Select CTM</option>
+        <!-- Options for the CTM dropdown, populated dynamically from the list of unique bulk CTM names -->
         {% for ctm_name in unique_bulk_ctm_names %}
           <option value="{{ ctm_name }}">{{ ctm_name }}</option>
         {% endfor %}
       </select>
     </div>
 
-    <!-- Updated Bulk CTM Modal Lot # Dropdown ID -->
+    <!-- Dropdown for selecting the Lot number associated with the chosen CTM -->
     <div class="mb-3">
       <label for="bulkLotField" class="form-label">Lot #</label>
       <select class="form-select" id="bulkLotField" name="lot_number" disabled>
+        <!-- Default option prompting the user to make a selection -->
         <option value="" disabled selected>Select Lot #</option>
-        <!-- Options will be populated based on CTM selection via JavaScript -->
+        <!-- The options here will be populated by the update_bulk_ctm_fields.js script based on the selected CTM -->
       </select>
     </div>
 
-    <!-- Updated Quantity Input ID -->
+    <!-- Input field for the quantity, which will be auto-populated and made editable based on selection -->
     <div class="mb-3">
       <label for="bulkQuantityField" class="form-label">Quantity</label>
       <input type="number" class="form-control" id="bulkQuantityField" name="quantity" readonly>
     </div>
 
-    <!-- Updated Expiration Date Input ID -->
+    <!-- Input field for the expiration date, which will be auto-populated based on selection -->
     <div class="mb-3">
       <label for="bulkExpirationDateField" class="form-label">Expiration Date</label>
       <input type="date" class="form-control" id="bulkExpirationDateField" name="expiration_date" readonly>
@@ -52,7 +62,9 @@
 {% endblock modal_body %}
 
 {% block extra_js %}
-<script src="{% static 'js/update_bulk_ctm_fields.js' %}"></script>
+<!-- Link to the JavaScript file that contains the logic for updating fields based on user selection -->
+{#<script src="{% static 'js/update_bulk_ctm_fields.js' %}"></script>#}
 {% endblock %}
+
 
 

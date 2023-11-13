@@ -1,0 +1,88 @@
+<!-- templates/ctm_inventory/ctm_inventory_tables.html -->
+<!-- This template is used to render both individual and bulk CTM inventory tables. -->
+
+<div class="inventory-wrapper">
+    <!-- Section for Individual CTM Inventory -->
+    <section class="inventory-section">
+        <!-- Title for the Individual CTM Inventory table -->
+        <h3 class="section-title">Individual CTM Inventory</h3>
+        <!-- Responsive table container to ensure the table is scrollable on smaller screens -->
+        <div class="table-responsive">
+            <!-- The table for Individual CTM Inventory with appropriate classes for styling -->
+            <table class="table individual-ctm-table">
+                <!-- Table header with column titles -->
+                <thead>
+                    <tr>
+                        <th>CTM Name</th>
+                        <th>Kit Serial Number</th>
+                        <th>Quantity</th>
+                        <th>Expiration Date</th>
+                        <th>Lot Number</th>
+                    </tr>
+                </thead>
+                <!-- Table body where the inventory items will be listed -->
+                <tbody>
+                    <!-- Loop through the individual_ctms variable passed to the template -->
+                    {% for item in individual_ctms %}
+                    <tr>
+                        <!-- Display the CTM name -->
+                        <td>{{ item.ctm_name }}</td>
+                        <!-- Display the Kit Serial Number -->
+                        <td>{{ item.kit_serial_number }}</td>
+                        <!-- Display the Quantity -->
+                        <td>{{ item.quantity }}</td>
+                        <!-- Display the Expiration Date -->
+                        <td>{{ item.expiration_date }}</td>
+                        <!-- Display the Lot Number -->
+                        <td>{{ item.lot_number }}</td>
+                    </tr>
+                    {% empty %}
+                    <!-- If there are no individual CTMs, display a message in a single row -->
+                    <tr><td colspan="5">No individual CTM inventory available.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Section for Bulk CTM Inventory -->
+    <section class="inventory-section">
+        <!-- Title for the Bulk CTM Inventory table -->
+        <h3 class="section-title">Bulk CTM Inventory</h3>
+        <!-- Responsive table container for the bulk inventory -->
+        <div class="table-responsive">
+            <!-- The table for Bulk CTM Inventory with classes for styling -->
+            <table class="table bulk-ctm-table">
+                <!-- Table header with column titles -->
+                <thead>
+                    <tr>
+                        <th>CTM Name</th>
+                        <th>Quantity</th>
+                        <th>Expiration Date</th>
+                        <th>Lot Number</th>
+                    </tr>
+                </thead>
+                <!-- Table body for bulk inventory items -->
+                <tbody>
+                    <!-- Loop through the bulk_ctms variable passed to the template -->
+                    {% for item in bulk_ctms %}
+                    <tr>
+                        <!-- Display the CTM name -->
+                        <td>{{ item.ctm_name }}</td>
+                        <!-- Display the Quantity -->
+                        <td>{{ item.quantity }}</td>
+                        <!-- Display the Expiration Date -->
+                        <td>{{ item.expiration_date }}</td>
+                        <!-- Display the Lot Number -->
+                        <td>{{ item.lot_number }}</td>
+                    </tr>
+                    {% empty %}
+                    <!-- If there are no bulk CTMs, display a message in a single row -->
+                    <tr><td colspan="4">No bulk CTM inventory available.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+

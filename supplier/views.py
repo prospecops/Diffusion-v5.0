@@ -1,13 +1,14 @@
 import json
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
-from django.db.models import Sum
+from django.core.serializers.json import DjangoJSONEncoder
 from django.shortcuts import render, redirect
+from django.utils.safestring import mark_safe
 
+from depots.models import Depot
 from .forms import BulkCTMForm, IndividualCTMForm
 from .models import IndividualCTM, BulkCTM
-from django.utils.safestring import mark_safe
-from django.core.serializers.json import DjangoJSONEncoder
 
 
 @login_required
@@ -37,6 +38,11 @@ def depot_inventory_shipments(request):
     # Serialize the data for Bulk CTMs
     bulk_ctms_json = mark_safe(json.dumps(list(bulk_ctms), cls=DjangoJSONEncoder))
 
+    # Query for all depots and include address
+    depots = list(Depot.objects.values('name', 'address'))
+
+    # Serialize the depot data
+    depots_json = mark_safe(json.dumps(depots, cls=DjangoJSONEncoder))
 
     # Create the context with all required data
     context = {
@@ -44,7 +50,8 @@ def depot_inventory_shipments(request):
         'unique_bulk_ctm_names': unique_bulk_ctm_names,
         'ctms_with_kits_json': ctms_with_kits_json,
         'bulk_ctms_json': bulk_ctms_json,  # Updated to include non-aggregated data
-        # Add any other context variables you might need
+        'depots_json': depots_json,  # Updated to include address
+        'depots': depots,
     }
 
     return render(request, 'supplier/depot_inventory_shipments.html', context)
