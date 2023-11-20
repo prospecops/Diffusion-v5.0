@@ -1,89 +1,137 @@
+<!-- supplier/templates/supplier/create_inventory.html -->
+
 {% extends 'supplier/supplier_base_generic.html' %}
 
+{% load static %} <!-- Load static files -->
+
 {% block supplier_content %}
-    <h1>Create Inventory</h1>
+<!-- Main content area for Create Inventory -->
+<h1>Create Inventory</h1>
 
-    {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
+<!-- Section for Add CTM Buttons -->
+<div class="ctm-buttons-section">
+    <!-- Button to add individual CTM, triggers a modal -->
+    <button type="button" class="btn btn-primary" id="addIndividualCTMButton" data-bs-toggle="modal" data-bs-target="#addIndividualCTM">
+        Add Individual CTM
+    </button>
+    <!-- Button to add bulk CTM, triggers a modal -->
+    <button type="button" class="btn btn-primary" id="addBulkCTMButton" data-bs-toggle="modal" data-bs-target="#addBulkCTM">
+        Add Bulk CTM
+    </button>
+</div>
 
-    <h2>Add CTM</h2>
-    <select id="ctm_type" onchange="toggleCTMType()">
-        <option value="">--Select a Type--</option>
-        <option value="bulk">Bulk</option>
-        <option value="individual">Individual</option>
-    </select>
+<!-- Including the CTM inventory tables -->
+{% include "ctm_inventory/ctm_inventory_tables.html" with individual_ctms=individual_ctm_data bulk_ctms=bulk_ctm_data %}
 
-    <div id="bulk_form" style="display: none;"> <!-- Change display to none -->
-        <form method="post" action="{% url 'supplier:create_inventory' %}">
-            {% csrf_token %}
-            <input type="hidden" name="ctm_type" value="bulk">  <!-- This line is added -->
-            {{ bulk_form.as_p }}
-            <button type="submit">Submit</button>
-        </form>
-    </div>
+<!-- Create Inventory Button Wrapper -->
+<div class="create-inventory-button-wrapper">
+    <button type="button" class="btn btn-warning" id="createInventoryButton" data-bs-toggle="modal" data-bs-target="#createInventoryWarningModal">
+        Create Inventory
+    </button>
+</div>
 
-    <div id="individual_form" style="display: none;">
-        <form method="post" action="{% url 'supplier:create_inventory' %}" onsubmit="return validateForm();">
-            {% csrf_token %}
-            <input type="hidden" name="ctm_type" value="individual">
-            {{ individual_form.as_p }}
-            <div class="error-message" id="kitNumberError" style="color: red;"></div>
-            <button type="submit">Submit</button>
-        </form>
-    </div>
+<!-- Include Create Inventory Warning Modal -->
+{% include 'form_modal/create_inventory/create_inventory_warning.html' with modal_id='createInventoryWarningModal' modal_title='Create Inventory' modal_save_button_text='Save' %}
+
+<!-- Modals for Adding CTM Types -->
+{% include 'form_modal/create_inventory/add_individual_ctm.html' with modal_id='addIndividualCTM' modal_title='Add Individual CTM' modal_save_button_text='Save' %}
+{% include 'form_modal/create_inventory/add_bulk_ctm.html' with modal_id='addBulkCTM' modal_title='Add Bulk CTM' modal_save_button_text='Save' %}
 {% endblock %}
 
-{% block extra_style %}
-<script>
-    function toggleCTMType() {
-        var ctmType = document.getElementById('ctm_type').value;
-
-        // Hide both forms initially
-        document.getElementById('bulk_form').style.display = 'none';
-        document.getElementById('individual_form').style.display = 'none';
-
-        // Only display the selected form
-        if (ctmType == 'bulk') {
-            document.getElementById('bulk_form').style.display = 'block';
-        } else if (ctmType == 'individual') {
-            document.getElementById('individual_form').style.display = 'block';
-        }
-
-        // Initialize datepicker for the selected form
-        $(".datepicker").datepicker({
-            dateFormat: 'yy-mm-dd'
-        });
-    }
-
-    function validateForm() {
-    const kitNumberInput = document.querySelector("[name='individual-kit_serial_number']");
-    const kitNumberErrorDiv = document.getElementById("kitNumberError");
-    if (kitNumberInput.value === "") {
-        kitNumberErrorDiv.textContent = "Please fill out this field.";
-        return false;
-    }
-
-    {% for message in messages %}
-        if ("{{ message }}" === "Form is not valid.") {
-            kitNumberErrorDiv.textContent = "Kit number already exists.";
-            return false;
-        }
-    {% endfor %}
-
-    return true;
-}
-
-</script>
-
-
+{% block extra_script %}
+<!-- Scripts related to create inventory page -->
+<script src="{% static 'js/supplier/create_inventory/create_individual_ctm.js' %}"></script> <!-- Script for handling individual CTM creation -->
+<script src="{% static 'js/supplier/create_inventory/create_bulk_ctm.js' %}"></script> <!-- Script for handling bulk CTM creation -->
 {% endblock %}
+
+
+
+{#{% extends 'supplier/supplier_base_generic.html' %}#}
+{##}
+{#{% block supplier_content %}#}
+{#    <h1>Create Inventory</h1>#}
+{##}
+{#    {% if messages %}#}
+{#        <div class="messages">#}
+{#            {% for message in messages %}#}
+{#                <div class="alert alert-{{ message.tags }}">#}
+{#                    {{ message }}#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{#    {% endif %}#}
+{##}
+{#    <h2>Add CTM</h2>#}
+{#    <select id="ctm_type" onchange="toggleCTMType()">#}
+{#        <option value="">--Select a Type--</option>#}
+{#        <option value="bulk">Bulk</option>#}
+{#        <option value="individual">Individual</option>#}
+{#    </select>#}
+{##}
+{#    <div id="bulk_form" style="display: none;"> <!-- Change display to none -->#}
+{#        <form method="post" action="{% url 'supplier:create_inventory' %}">#}
+{#            {% csrf_token %}#}
+{#            <input type="hidden" name="ctm_type" value="bulk">  <!-- This line is added -->#}
+{#            {{ bulk_form.as_p }}#}
+{#            <button type="submit">Submit</button>#}
+{#        </form>#}
+{#    </div>#}
+{##}
+{#    <div id="individual_form" style="display: none;">#}
+{#        <form method="post" action="{% url 'supplier:create_inventory' %}" onsubmit="return validateForm();">#}
+{#            {% csrf_token %}#}
+{#            <input type="hidden" name="ctm_type" value="individual">#}
+{#            {{ individual_form.as_p }}#}
+{#            <div class="error-message" id="kitNumberError" style="color: red;"></div>#}
+{#            <button type="submit">Submit</button>#}
+{#        </form>#}
+{#    </div>#}
+{#{% endblock %}#}
+{##}
+{#{% block extra_style %}#}
+{#<script>#}
+{#    function toggleCTMType() {#}
+{#        var ctmType = document.getElementById('ctm_type').value;#}
+{##}
+{#        // Hide both forms initially#}
+{#        document.getElementById('bulk_form').style.display = 'none';#}
+{#        document.getElementById('individual_form').style.display = 'none';#}
+{##}
+{#        // Only display the selected form#}
+{#        if (ctmType == 'bulk') {#}
+{#            document.getElementById('bulk_form').style.display = 'block';#}
+{#        } else if (ctmType == 'individual') {#}
+{#            document.getElementById('individual_form').style.display = 'block';#}
+{#        }#}
+{##}
+{#        // Initialize datepicker for the selected form#}
+{#        $(".datepicker").datepicker({#}
+{#            dateFormat: 'yy-mm-dd'#}
+{#        });#}
+{#    }#}
+{##}
+{#    function validateForm() {#}
+{#    const kitNumberInput = document.querySelector("[name='individual-kit_serial_number']");#}
+{#    const kitNumberErrorDiv = document.getElementById("kitNumberError");#}
+{#    if (kitNumberInput.value === "") {#}
+{#        kitNumberErrorDiv.textContent = "Please fill out this field.";#}
+{#        return false;#}
+{#    }#}
+{##}
+{#    {% for message in messages %}#}
+{#        if ("{{ message }}" === "Form is not valid.") {#}
+{#            kitNumberErrorDiv.textContent = "Kit number already exists.";#}
+{#            return false;#}
+{#        }#}
+{#    {% endfor %}#}
+{##}
+{#    return true;#}
+{#}#}
+{##}
+{#</script>#}
+{##}
+{##}
+{#{% endblock %}#}
 
 
 

@@ -1,0 +1,39 @@
+<!-- templates/form_modal/create_inventory/add_individual_ctm.html -->
+
+{% extends 'form_modal/reusable_modal.html' %}
+
+{% block modal_header %}
+<div class="modal-header">
+    <h5 class="modal-title" id="addIndividualCTMModalLabel">Add Individual CTM</h5>
+    <button type="button" class="btn btn-primary" id="saveIndividualCTMButton" disabled>Save</button>
+    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+</div>
+{% endblock modal_header %}
+
+{% block modal_body %}
+<div class="modal-body">
+    <form id="addIndividualCTMForm">
+        <div class="mb-3">
+            <label for="individualCtmNameField" class="form-label">CTM Name</label>
+            <input type="text" class="form-control" id="individualCtmNameField" name="ctm_name">
+        </div>
+        <div class="mb-3">
+            <label for="individualCtmKitSerialNumberField" class="form-label">Kit Serial Number</label>
+            <input type="text" class="form-control" id="individualCtmKitSerialNumberField" name="kit_serial_number">
+        </div>
+        <div class="mb-3">
+            <label for="individualCtmLotNumberField" class="form-label">Lot Number</label>
+            <input type="text" class="form-control" id="individualCtmLotNumberField" name="lot_number">
+        </div>
+        <div class="mb-3">
+            <label for="individualCtmQuantityField" class="form-label">Quantity</label>
+            <input type="number" class="form-control" id="individualCtmQuantityField" name="quantity" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="individualCtmExpirationDateField" class="form-label">Expiration Date</label>
+            <input type="date" class="form-control" id="individualCtmExpirationDateField" name="expiration_date">
+        </div>
+    </form>
+</div>
+{% endblock modal_body %}
+
