@@ -200,16 +200,15 @@ def validate_lot_number_format(lot_number):
     return bool(re.match(r'^[A-Za-z0-9-]{3,20}$', lot_number))
 
 
-def cleanup_expired_sessions():
-    """
-    Placeholder function for cleaning up expired sessions in TemporaryCTMInventory.
-    TODO: Implement the actual cleanup logic.
-    """
-    # TODO: Implement logic to identify and delete expired session entries.
-    # This could involve filtering TemporaryCTMInventory objects based on
-    # criteria like 'created_at' timestamp and deleting them.
-
-    pass  # Remove this line once the actual implementation is done.
+@login_required
+def cleanup_sessions(request):
+    if request.method == 'POST':
+        session_id = request.POST.get('session_id')
+        if session_id:
+            TemporaryCTMInventory.objects.filter(page_session_id=session_id).delete()
+            return JsonResponse({'status': 'success'}, status=200)
+        return JsonResponse({'error': 'Session ID not provided'}, status=400)
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
 @login_required

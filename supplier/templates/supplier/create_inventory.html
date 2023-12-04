@@ -33,6 +33,9 @@
 <!-- CSRF Token for AJAX Requests -->
 <input type="hidden" id="csrfToken" value="{{ csrf_token }}">
 
+<!-- CSRF Token for AJAX and Beacon Requests -->
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
 <!-- Include Create Inventory Warning Modal -->
 {% include 'form_modal/create_inventory/create_inventory_warning.html' with modal_id='createInventoryWarningModal' modal_title='Create Inventory' modal_save_button_text='Save' %}
 

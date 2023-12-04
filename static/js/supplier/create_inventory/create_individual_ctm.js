@@ -96,6 +96,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
+    // JavaScript to send cleanup request with CSRF token
+    document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'hidden') {
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            const sessionId = sessionStorage.getItem('pageSessionId');
+            const data = new FormData();
+            data.append('csrfmiddlewaretoken', csrfToken);
+            data.append('session_id', sessionId);
+
+            navigator.sendBeacon('/supplier/cleanup_sessions/', data);
+        }
+    });
+
+
     // --------------- Event Listeners and Handlers ---------------
     // Function to update the state of the Save button based on field inputs
     const updateFormState = () => {
