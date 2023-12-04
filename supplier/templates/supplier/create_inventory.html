@@ -30,6 +30,9 @@
     </button>
 </div>
 
+<!-- CSRF Token for AJAX Requests -->
+<input type="hidden" id="csrfToken" value="{{ csrf_token }}">
+
 <!-- Include Create Inventory Warning Modal -->
 {% include 'form_modal/create_inventory/create_inventory_warning.html' with modal_id='createInventoryWarningModal' modal_title='Create Inventory' modal_save_button_text='Save' %}
 
@@ -40,9 +43,12 @@
 
 {% block extra_script %}
 <!-- Scripts related to create inventory page -->
+<script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuid.min.js"></script> <!-- UUID library -->
 <script src="{% static 'js/supplier/create_inventory/create_individual_ctm.js' %}"></script> <!-- Script for handling individual CTM creation -->
 <script src="{% static 'js/supplier/create_inventory/create_bulk_ctm.js' %}"></script> <!-- Script for handling bulk CTM creation -->
+<script src="{% static 'js/supplier/create_inventory/create_inventory.js' %}"></script> <!-- Script for handling create inventory -->
 {% endblock %}
+
 
 
 

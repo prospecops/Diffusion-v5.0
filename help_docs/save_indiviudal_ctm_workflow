@@ -1,0 +1,43 @@
+Workflow Overview
+1. Frontend Validation (JavaScript)
+Action: User fills the form and clicks the "Save" button.
+Process:
+The JavaScript validation functions (validateKitSerialNumberFormat, validateExpirationDate, etc.) check if the input data meets the specified criteria (like format, range).
+If any validation fails, an error message is shown, and the process stops here.
+2. Data Submission to Backend (AJAX Request)
+Action: Assuming all frontend validations pass, the JavaScript then prepares an AJAX request.
+Process:
+The data from the form (CTM details) is collected and sent to the backend via an AJAX POST request.
+The request targets your Django view (e.g., process_ctm_entries) designed to handle this data.
+The page session identifier is included in this request to associate this data with the specific user's page session.
+3. Backend Validation (Django View)
+Action: Django view (process_ctm_entries) receives the AJAX request.
+Process:
+The view performs its validation checks, possibly re-validating much of what was checked on the frontend (this is a security best practice).
+If the data fails any of these backend validations, a response is sent back to the frontend indicating the error, and the process stops.
+4. Model-Level Validation and Saving Data
+Action: Assuming the data passes the Django view validations.
+Process:
+Before saving data to the TemporaryCTMInventory, model-level validations (defined in the model’s clean method) are triggered.
+These validations ensure data integrity at the database level.
+If validations pass, the data is saved to the TemporaryCTMInventory.
+5. Backend Response to Frontend
+Action: Once the data is successfully saved in the TemporaryCTMInventory.
+Process:
+The backend sends a success response back to the frontend.
+6. Frontend Table Update
+Action: JavaScript receives the success response.
+Process:
+The JavaScript then updates the frontend table to include the new CTM entry.
+This update can use the data initially sent in the AJAX request or potentially request updated data from the server.
+7. Form Reset and Ready for Next Entry
+Action: After the table update.
+Process:
+The form fields are reset to their initial state, ready for the next entry.
+The modal is closed (if applicable).
+Note on Data Flow
+The data displayed in the frontend table after a successful save is typically the data that was just sent to the backend, assuming the backend doesn't modify it beyond validation. If the backend does modify the data (or if you need to include additional data from the backend), you may need to fetch the latest entry details from the backend after a successful save.
+
+In some implementations, especially where backend processing is significant or additional data from the backend is required, the frontend table update might involve an additional AJAX request to fetch the latest state of the data.
+
+This workflow ensures data integrity and user feedback at each stage, from initial entry on the frontend through validation and saving in the backend, and finally reflecting the changes back on the frontend.

@@ -1,6 +1,10 @@
+import uuid
+
 from django.db import models
 from django.conf import settings
-
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+from datetime import date
 
 class SupplierShipment(models.Model):
     STATUS_CHOICES = [
@@ -71,7 +75,7 @@ class IndividualCTM(CTM):
         return f"{self.ctm_name} - {self.kit_serial_number}"
 
 
-class CTM(models.Model):
+class CTMInventory(models.Model):
     CTM_TYPE_CHOICES = [
         ('Bulk', 'Bulk'),
         ('Individual', 'Individual'),
@@ -91,3 +95,52 @@ class CTM(models.Model):
             return f"Individual: {self.ctm_name} - Serial: {self.kit_serial_number} - Lot: {self.lot_number} - Exp: {self.expiration_date}"
         else:
             return f"Bulk: {self.ctm_name} - Lot: {self.lot_number} - Exp: {self.expiration_date}"
+
+
+class TemporaryCTMInventory(models.Model):
+    # Page session identifier
+    page_session_id = models.UUIDField(default=uuid.uuid4)
+
+    # Fields similar to CTMInventory
+    CTM_TYPE_CHOICES = [
+        ('Bulk', 'Bulk'),
+        ('Individual', 'Individual'),
+    ]
+
+    ctm_type = models.CharField(max_length=10, choices=CTM_TYPE_CHOICES)
+    ctm_name = models.CharField(max_length=200)
+    lot_number = models.CharField(max_length=200)
+    expiration_date = models.DateField()
+    kit_serial_number = models.CharField(max_length=100, null=True, blank=True)
+    quantity = models.PositiveIntegerField(default=1)
+
+    # Additional fields for tracking
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.ctm_type}: {self.ctm_name} - Lot: {self.lot_number} - Exp: {self.expiration_date}"
+
+    def clean(self):
+        # Ensure expiration date is in the future
+        if self.expiration_date <= date.today():
+            raise ValidationError(_('Expiration date must be in the future.'))
+
+        # Quantity validation
+        if self.ctm_type == 'Individual' and self.quantity != 1:
+            raise ValidationError(_('Quantity for Individual CTM must be 1.'))
+        elif self.ctm_type == 'Bulk' and not (1 <= self.quantity <= 10000):
+            raise ValidationError(_('Quantity for Bulk CTM must be between 1 and 10,000.'))
+
+        # Kit serial number validation for Individual CTM
+        if self.ctm_type == 'Individual':
+            if not self.kit_serial_number.isdigit():
+                raise ValidationError(_('Kit serial number must be numeric.'))
+            if TemporaryCTMInventory.objects.filter(kit_serial_number=self.kit_serial_number).exists() or \
+               CTMInventory.objects.filter(kit_serial_number=self.kit_serial_number).exists():
+                raise ValidationError(_('Kit serial number must be unique across Temporary and main CTM inventories.'))
+        elif self.ctm_type == 'Bulk' and self.kit_serial_number:
+            raise ValidationError(_('Kit serial number should not be set for Bulk CTM.'))
+
+    class Meta:
+        verbose_name = "Temporary CTM Inventory"
+        verbose_name_plural = "Temporary CTM Inventories"
